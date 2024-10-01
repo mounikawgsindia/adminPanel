@@ -39,6 +39,12 @@ android {
 }
 
 dependencies {
+    //glide
+    implementation ("com.github.bumptech.glide:glide:4.12.0")
+    //swiperefreshlayout
+    implementation ("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
+    //Masterkey for security
+    implementation ("androidx.security:security-crypto:1.1.0-alpha06")
     //circular Image
     implementation ("de.hdodenhof:circleimageview:3.1.0")
 

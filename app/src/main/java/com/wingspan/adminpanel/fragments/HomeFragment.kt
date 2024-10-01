@@ -7,13 +7,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.wingspan.adminpanel.R
+import com.wingspan.adminpanel.databinding.FragmentHomeBinding
 import com.wingspan.adminpanel.databinding.FragmentMerchantApprovalsBinding
 import com.wingspan.adminpanel.extensions.Extensions
+import com.wingspan.adminpanel.extensions.Extensions.setDebouncedClickListener
 import com.wingspan.adminpanel.viewmodel.ShopKeeperViewModel
 
 class HomeFragment : Fragment() {
-    lateinit var _binding: FragmentMerchantApprovalsBinding
+    lateinit var _binding: FragmentHomeBinding
     val binding get()=_binding
     private val viewModel:ShopKeeperViewModel by viewModels()
 
@@ -22,7 +25,7 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        _binding=FragmentMerchantApprovalsBinding.inflate(layoutInflater)
+        _binding=FragmentHomeBinding.inflate(layoutInflater)
         return binding.root
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -33,7 +36,16 @@ class HomeFragment : Fragment() {
         setRecycleView()
     }
     private fun setUI(){
+        binding?.apply {
 
+            merchantLl.setDebouncedClickListener() {
+                findNavController().navigate(R.id.merchant_verify)
+            }
+            prodLl.setDebouncedClickListener {
+                findNavController().navigate(R.id.prod_approval)
+            }
+
+        }
     }
     private fun setObserver(){
 

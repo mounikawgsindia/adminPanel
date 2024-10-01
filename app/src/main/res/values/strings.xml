@@ -5,10 +5,12 @@
     <string name="logout">Logout</string>
     <string name="enter_your_name_and_email_to_sign_up">Enter your name and email to sign up</string>
     <string name="email">Email</string>
+    <string name="email1">Email :</string>
     <string name="register">Register</string>
     <string name="enter_your_mobile_number">Enter Your Mobile Number</string>
     <string name="we_will_send_you_the_4_digit_verification_code">Enter your mobile number for a better way to pick fresh food.</string>
     <string name="mobile_number">Mobile Number</string>
+    <string name="mobile_number1">Mobile Number :</string>
     <string name="generate_otp">GENERATE OTP</string>
     <string name="new_user">New User?</string>
     <string name="register_here">REGISTER HERE</string>
@@ -71,4 +73,10 @@
     <string name="look_up_products_by_name">Look up products by name</string>
     <string name="merchant_approval">Merch Verify</string>
     <string name="product_approval">Prod Approval</string>
+    <string name="pincode">Pincode :</string>
+    <string name="gst_number">GST Number :</string>
+    <string name="merchant_verification">Merchant Verification</string>
+    <string name="accept">Approve</string>
+    <string name="new_arrivals">New Arrivals</string>
+    <string name="flash_sale">Flash Sale</string>
 </resources>

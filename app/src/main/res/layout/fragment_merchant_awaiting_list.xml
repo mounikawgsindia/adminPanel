@@ -1,22 +1,17 @@
-<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/swipeRefreshLayout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:ignore="MissingClass">
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
     <androidx.constraintlayout.widget.ConstraintLayout
+
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/approved_rv"
+            android:id="@+id/pending_merchant_rv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:listitem="@layout/custom_mernant_pending_list"/>
@@ -55,4 +50,3 @@
     </FrameLayout>
 
 </FrameLayout>
-</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

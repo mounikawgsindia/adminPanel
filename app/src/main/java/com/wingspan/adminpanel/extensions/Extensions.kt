@@ -21,6 +21,8 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat
+import androidx.security.crypto.EncryptedSharedPreferences
+import androidx.security.crypto.MasterKey
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import com.wingspan.adminpanel.R
@@ -192,6 +194,59 @@ object Extensions {
         }
         return false
     }
+    fun storeAuthCredentials(context: Context, apiKey: String, apiSecret: String) {
+        // Create or get the master key
+        try {
+            val masterKey = MasterKey.Builder(context)
+                .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
+                .build()
 
+            val sharedPreferences = EncryptedSharedPreferences.create(
+                context,
+                "secure_prefs",
+                masterKey,
+                EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+                EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+            )
 
+            with(sharedPreferences.edit()) {
+                putString("username", apiKey)
+                putString("password", apiSecret)
+                apply()
+            }
+        } catch (e: Exception) {
+            // Log the exception
+            Log.e("EncryptionError", "Error storing credentials", e)
+        }
+    }
+
+    fun getAuthHeaderValues(context: Context): String {
+        return try {
+            val masterKey = MasterKey.Builder(context)
+                .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
+                .build()
+
+            val sharedPreferences = EncryptedSharedPreferences.create(
+                context,
+                "secure_prefs",
+                masterKey,
+                EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+                EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+            )
+
+            val userName = sharedPreferences.getString("username", null)
+            val passwordAuth = sharedPreferences.getString("password", null)
+
+            if (userName == null || passwordAuth == null) {
+                return ""
+            }
+
+            val credentials = "$userName:$passwordAuth"
+            "Basic " + java.util.Base64.getEncoder().encodeToString(credentials.toByteArray())
+        } catch (e: Exception) {
+            // Log the exception
+            Log.e("DecryptionError", "Error retrieving credentials", e)
+            ""
+        }
+    }
 }

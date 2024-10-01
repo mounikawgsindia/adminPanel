@@ -12,6 +12,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.wingspan.adminpanel.databinding.ActivityMainBinding
+import com.wingspan.adminpanel.extensions.Extensions
 
 class MainActivity : AppCompatActivity() {
     lateinit var _binding: ActivityMainBinding
@@ -21,6 +22,17 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         _binding=ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        //  credentials
+        val apiKey = "jyoshna"
+        val apiSecret = "123456789"
+
+        // Store credentials securely
+        Extensions.storeAuthCredentials(this, apiKey, apiSecret)
+        // Retrieve credentials securely
+        val data= Extensions.getAuthHeaderValues(this)
+        // Use the credentials as needed
+        println("Stored API Key: $data")
         // Safely get the NavHostFragment
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as? NavHostFragment
             ?: throw IllegalStateException("NavHostFragment not found")
@@ -29,12 +41,7 @@ class MainActivity : AppCompatActivity() {
 
         // Set up BottomNavigationView with NavController
         binding.bottomNavigation.setupWithNavController(navController)
-        val menuItem=findViewById<BottomNavigationView>(R.id.bottom_navigation).getChildAt(0)as BottomNavigationMenuView
-        val itemView =menuItem.getChildAt(1) as BottomNavigationItemView
-        val badgeView=LayoutInflater.from(this@MainActivity).inflate(R.layout.custom_badge,itemView,false)
-        itemView.addView(badgeView)
-        val badgeText=badgeView.findViewById<TextView>(R.id.badge_text)
-        badgeText.text="7"
+
         binding.bottomNavigation.setOnItemSelectedListener {item ->
             when (item.itemId) {
                 R.id.home -> {

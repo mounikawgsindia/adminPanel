@@ -6,21 +6,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.tabs.TabLayoutMediator
-import com.wingspan.adminpanel.R
-import com.wingspan.adminpanel.adapter.MerchantApprovalAdapter
+import com.wingspan.adminpanel.adapter.MerchantAdapter
 import com.wingspan.adminpanel.databinding.FragmentMerchantApprovalsBinding
+import com.wingspan.adminpanel.databinding.FragmentMerchantBinding
 
 
 class MerchantApprovals : Fragment() {
-    lateinit var _binding: FragmentMerchantApprovalsBinding
+    lateinit var _binding: FragmentMerchantBinding
     val binding get()=_binding
-    private lateinit var merchantAdapter:MerchantApprovalAdapter
+    private lateinit var merchantAdapter:MerchantAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        _binding=FragmentMerchantApprovalsBinding.inflate(layoutInflater)
+        _binding=FragmentMerchantBinding.inflate(layoutInflater)
         return binding.root
     }
 
@@ -34,15 +34,15 @@ class MerchantApprovals : Fragment() {
     }
     private fun setViewPager(){
         binding.apply {
-            merchantAdapter= MerchantApprovalAdapter(requireActivity())
+            merchantAdapter= MerchantAdapter(requireActivity())
             viewpager.adapter=merchantAdapter
 
 
             TabLayoutMediator(tabLayout,viewpager){tab,position->
                 tab.text= when(position){
-                    0->"REQUESTS"
+                    0->"AWAITING"
                     1->"APPROVALS"
-                    2->"NON APPROVALS"
+                    2->"REJECTION"
                     else->null
                 }
             }.attach()

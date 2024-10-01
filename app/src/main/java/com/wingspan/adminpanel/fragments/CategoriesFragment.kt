@@ -5,19 +5,20 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.wingspan.adminpanel.R
+import com.wingspan.adminpanel.databinding.FragmentCategoriesBinding
 
 
-class MerchantNonApprovals : Fragment() {
-
-
+class CategoriesFragment : Fragment() {
+var _binding: FragmentCategoriesBinding?=null
+    val binding get()=_binding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_merchant_non_approvals, container, false)
+        _binding=FragmentCategoriesBinding.inflate(layoutInflater)
+        return binding?.root
     }
 
 
