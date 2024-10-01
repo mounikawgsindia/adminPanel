@@ -1,0 +1,27 @@
+<!-- res/layout/custom_badge.xml -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:layout_marginTop="10dp"
+    android:layout_marginStart="10dp"
+    android:layout_height="wrap_content">
+
+    <!-- Badge Circle -->
+    <View
+        android:id="@+id/badge_circle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:background="@drawable/badge_background_circle" />
+
+    <!-- Badge Text -->
+    <TextView
+        android:id="@+id/badge_text"
+        style="@style/NormalTextStyle_green"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:text="5"
+        android:textColor="@color/white"
+        android:textStyle="bold" />
+</RelativeLayout>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/home"
+        android:title="@string/home"
+        android:icon="@drawable/home_icon"/>
+    <item android:id="@+id/merchant_verify"
+        android:title="@string/merchant_approval"
+        android:icon="@drawable/approval"/>
+
+    <item android:id="@+id/prod_approval"
+        android:title="@string/product_approval"
+        android:icon="@drawable/stock"/>
+
+    <item android:id="@+id/account"
+        android:title="@string/account"
+
+        android:icon="@drawable/account_icon"/>
+</menu>

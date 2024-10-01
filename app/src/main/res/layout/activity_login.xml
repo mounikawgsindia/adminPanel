@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:id="@+id/root1"
+    tools:context=".activity.LoginActivity">
+
+    <TextView
+        android:id="@+id/textView17"
+        style="@style/MainHeadingTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="132dp"
+        android:text="@string/login"
+        android:textAllCaps="true"
+        android:textColor="@color/green"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <LinearLayout
+        android:id="@+id/linearlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:padding="24dp"
+        app:layout_constraintTop_toBottomOf="@+id/textView17"
+        tools:layout_editor_absoluteX="0dp">
+<!--username-->
+        <TextView
+            android:id="@+id/usernameTV"
+            style="@style/NormalTextStyle_green"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/username"
+            android:textAllCaps="true"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="-10dp" />
+
+        <EditText
+            android:id="@+id/usernameEt"
+            style="@style/NormalTextStyle_black"
+
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:background="@drawable/edttext_bottom_line_grey"
+            android:hint="@string/enter_name"
+            android:text="mounikaMoravaneni"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView27"
+            tools:ignore="Autofill,LabelFor,RtlSymmetry" />
+        <TextView
+            android:id="@+id/usernameErrorTV"
+            style="@style/ErrorAppearance"
+            android:layout_gravity="start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:visibility="gone"
+            android:layout_marginStart="3dp"
+
+            />
+        <!--password-->
+        <TextView
+            android:id="@+id/passwordTv"
+            style="@style/NormalTextStyle_green"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+
+            android:text="@string/password"
+            android:textAllCaps="true"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="-10dp" />
+
+        <EditText
+            android:id="@+id/password_et"
+            style="@style/NormalTextStyle_black"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:background="@drawable/edttext_bottom_line_grey"
+            android:hint="@string/enter_password"
+            android:inputType="textPassword"
+            android:text="8125342434"
+            android:drawableEnd="@drawable/password_eye"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView26" />
+        <TextView
+            android:id="@+id/passwordErrorTV"
+            style="@style/ErrorAppearance"
+            android:layout_gravity="start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:visibility="gone"
+            android:layout_marginStart="3dp"
+
+            />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/login_btn"
+            style="@style/NormalTextStyle_white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/button_bg_green"
+            android:text="@string/login"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextText3"
+            tools:ignore="MissingConstraints" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@+id/button">
+
+            <TextView
+                android:id="@+id/textView19"
+                style="@style/NormalTextStyle_black"
+                android:layout_width="wrap_content"
+
+
+                android:layout_height="wrap_content"
+                android:text="@string/new_user"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/button" />
+
+            <TextView
+                android:id="@+id/register"
+                style="@style/NormalTextStyle_green"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+
+                android:background="@drawable/textview_ripple"
+                android:text="@string/register_here"
+
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+    <FrameLayout android:id="@+id/loader"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#80000000"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+    </FrameLayout>
+</FrameLayout>
