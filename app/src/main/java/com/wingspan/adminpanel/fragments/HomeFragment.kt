@@ -30,10 +30,9 @@ class HomeFragment : Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        fetchDataFromNetwork()
+
         setUI()
-        setObserver()
-        setRecycleView()
+
     }
     private fun setUI(){
         binding?.apply {
@@ -47,19 +46,5 @@ class HomeFragment : Fragment() {
 
         }
     }
-    private fun setObserver(){
 
-
-
-    }
-    private fun fetchDataFromNetwork(){
-        if(Extensions.isNetworkAvailable(requireActivity())){
-            viewModel.approvedMerchatApi()
-        }else{
-            Extensions.showNetworkAlertDialog(requireActivity())
-        }
-    }
-    private fun setRecycleView(){
-
-    }
 }

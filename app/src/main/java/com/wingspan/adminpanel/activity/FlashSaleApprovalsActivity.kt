@@ -5,9 +5,8 @@ import android.os.Bundle
 import com.google.android.material.tabs.TabLayoutMediator
 import com.wingspan.adminpanel.R
 import com.wingspan.adminpanel.adapter.FlashSaleAprovalsAdapter
-import com.wingspan.adminpanel.adapter.MerchantAdapter
 import com.wingspan.adminpanel.databinding.ActivityFlashSaleApprovalsBinding
-import com.wingspan.adminpanel.databinding.ActivityMainBinding
+
 
 class FlashSaleApprovalsActivity : AppCompatActivity() {
 
@@ -25,10 +24,10 @@ class FlashSaleApprovalsActivity : AppCompatActivity() {
     private fun setViewPager(){
         binding.apply {
             flashSaleAdapter= FlashSaleAprovalsAdapter(this@FlashSaleApprovalsActivity)
-            viewPager2.adapter=flashSaleAdapter
+            viewpager.adapter=flashSaleAdapter
 
 
-            TabLayoutMediator(tabLayout,viewPager2){tab,position->
+            TabLayoutMediator(tabLayoutFlashsale,viewpager){tab,position->
                 tab.text= when(position){
                     0->"AWAITING"
                     1->"APPROVALS"
@@ -36,6 +35,10 @@ class FlashSaleApprovalsActivity : AppCompatActivity() {
                     else->null
                 }
             }.attach()
+
+            backIv.setOnClickListener{
+                onBackPressedDispatcher.onBackPressed()
+            }
         }
     }
 }

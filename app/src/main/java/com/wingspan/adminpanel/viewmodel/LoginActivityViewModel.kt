@@ -54,7 +54,7 @@ class LoginActivityViewModel:ViewModel() {
                 _isLoading.value=false
                 Log.d("loginApiCall","loginApiCall response--->...${response.code()}...${response.body()}")
                 when (response.code()){
-                    200->{
+                    in 200..201->{
                         val responseData = response.body()
                         if (responseData != null) {
                             _shopKeeperLoginResponseSuccess.postValue(responseData)
@@ -63,27 +63,13 @@ class LoginActivityViewModel:ViewModel() {
                             _shopKeeperLoginError.postValue("Empty data")
                         }
                     }
-                    400-> {
+                    in 400..500-> {
+                        Log.d("loginApiCall","loginApiCall response--->...${response.code()}...${response.errorBody()?.string()}")
                         Extensions.handleErrorResponse(response.errorBody()){ errorMessage->
                             _shopKeeperLoginError.postValue(errorMessage)
                         }
                     }
-                    401->{
-                        Extensions.handleErrorResponse(response.errorBody()){errorMessage->
-                            _shopKeeperLoginError.postValue(errorMessage)
-                        }
-                    }
-                    403->{
-                        Extensions.handleErrorResponse(response.errorBody()){errorMessage->
-                            _shopKeeperLoginError.postValue(errorMessage)
-                        }
-                    }
-                    404->{ Extensions.handleErrorResponse(response.errorBody()){errorMessage->
-                        _shopKeeperLoginError.postValue(errorMessage)
-                    }}
-                    500->{  Extensions.handleErrorResponse(response.errorBody()){errorMessage->
-                        _shopKeeperLoginError.postValue(errorMessage)
-                    }}
+
                     else -> {
                         Log.d("response","--->error${response.code()}")
                         _shopKeeperLoginError.postValue("Unknown error occurred")

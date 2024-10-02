@@ -54,12 +54,14 @@ class ShopKeeperViewModel:ViewModel() {
     private val _isLoading=MutableLiveData<Boolean>()
     val isLoading:LiveData<Boolean> get() =_isLoading
 
-    fun approvedMerchatApi(){
+    fun approvedMerchatApi(isRefresh:Boolean){
 
 
             viewModelScope.launch {
                 try{
-                    _isLoading.value=true
+                    if(!isRefresh){
+                        _isLoading.value=true
+                    }
                     Log.d("approvedMerchatApi","approvedMerchatApi request--->")
                     val response= withContext(Dispatchers.IO){
                         BaseUrlProvider.create().approvedMerchants()
@@ -96,19 +98,23 @@ class ShopKeeperViewModel:ViewModel() {
                     Log.e("error", "Failed to fetch data:NetWork Issue ${e.message}")
                 }
                 finally{
-                    _isLoading.value=false
+                    if(!isRefresh){
+                        _isLoading.value=false
+                    }
                 }
             }
         }
 
 
 
-    fun rejectedMerchatApi(){
+    fun rejectedMerchatApi(isRefresh:Boolean){
 
 
         viewModelScope.launch {
                 try{
-                    _isLoading.value=true
+                    if(!isRefresh){
+                        _isLoading.value=true
+                    }
                     Log.d("rejectedMerchatApi","rejectedMerchatApi request--->")
                     val response= withContext(Dispatchers.IO){
                         BaseUrlProvider.create().rejectedMerchants()
@@ -145,17 +151,22 @@ class ShopKeeperViewModel:ViewModel() {
                     Log.e("error", "Failed to fetch data:NetWork Issue ${e.message}")
                 }
                 finally{
-                    _isLoading.value=false
+                    if(!isRefresh){
+                        _isLoading.value=false
+                    }
                 }
             }
         }
 
 
-    fun awaitingMerchatApi(){
+    fun awaitingMerchatApi(isRefresh:Boolean){
 
         viewModelScope.launch {
                 try{
-                    _isLoading.value=true
+                    if(!isRefresh){
+                        _isLoading.value=true
+                    }
+
                     Log.d("getFlashSale","getFlashSale request--->")
                     val response= withContext(Dispatchers.IO){
                         BaseUrlProvider.create().awaitingMerchants()
@@ -192,7 +203,9 @@ class ShopKeeperViewModel:ViewModel() {
                     Log.e("error", "Failed to fetch data:NetWork Issue ${e.message}")
                 }
                 finally{
-                    _isLoading.value=false
+                    if(!isRefresh){
+                        _isLoading.value=false
+                    }
                 }
             }
         }

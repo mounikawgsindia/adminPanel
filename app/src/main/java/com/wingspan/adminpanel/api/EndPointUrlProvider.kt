@@ -1,12 +1,15 @@
 package com.wingspan.adminpanel.api
 
 
+import com.wingspan.adminpanel.model.ApprovedFlashSale
 import com.wingspan.adminpanel.model.ApprovedMerchants
+import com.wingspan.adminpanel.model.AwaitingFlashSale
 import com.wingspan.adminpanel.model.AwaitingMerchants
 import com.wingspan.adminpanel.model.FlashSaleResponse
 import com.wingspan.adminpanel.model.LoginRequest
 import com.wingspan.adminpanel.model.LoginResponse
 import com.wingspan.adminpanel.model.RegistrationRequest
+import com.wingspan.adminpanel.model.RejectedFlashSale
 import com.wingspan.adminpanel.model.RejectedMerchants
 import com.wingspan.adminpanel.model.ResponseData
 import okhttp3.MultipartBody
@@ -21,6 +24,7 @@ import retrofit2.http.Header
 import retrofit2.http.Headers
 import retrofit2.http.Multipart
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Part
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -28,19 +32,16 @@ import retrofit2.http.Query
 interface EndPointUrlProvider {
 
     //signup
-    @POST("access/signup")
+    @POST("head/signup")
     @Headers("Content-Type:application/json")
    suspend fun registerUser(@Body registrationData: RegistrationRequest):Response<ResponseData>
 
    //login
-    @POST("access/login")
+    @POST("head/login")
     @Headers("Content-Type:application/json")
     suspend fun loginUser(@Body registrationData: LoginRequest):Response<LoginResponse>
 
-    //flashsale get
-    @GET("shopkeeper/getting")
-    @Headers("Content-Type:application/json")
-    suspend fun getFlashSale():Response<List<FlashSaleResponse>>
+
 
 
     @GET("giving/approved-shopkeepers")
@@ -51,6 +52,9 @@ interface EndPointUrlProvider {
 
     @GET("giving/rejected-shopkeepers")
     suspend fun rejectedMerchants():Response<List<RejectedMerchants>>
+
+
+
 
 
     @POST("giving/reject-shopkeeper/{id}")
@@ -64,9 +68,31 @@ interface EndPointUrlProvider {
         @Header("Authorization") authorization:String,
         @Path("id") id:String):Response<ResponseData>
 
+//flash sale apis
+
+    @GET("shopkeeper/getting")
+    suspend fun approvedFlashSale():Response<List<ApprovedFlashSale>>
+
+    @GET("admin/pending")
+    suspend fun awaitingFlashSale():Response<List<AwaitingFlashSale>>
+
+    @GET("admin/allrejected")
+    suspend fun rejectedFlashSale():Response<List<RejectedFlashSale>>
+
+    @PUT("admin/reject/{id}")
+    suspend fun getRejectFlashSaleById(
+        @Header("Authorization") authorization:String,
+        @Path("id") id:String):Response<ResponseData>
 
 
+    @PUT("admin/approve/{id}")
+    suspend fun getAcceptFlashSaleById(
+        @Header("Authorization") authorization:String,
+        @Path("id") id:String):Response<ResponseData>
 
-
+    @PUT("admin/approve-all")
+    suspend fun allApproveFlashSale(
+        @Header("Authorization") authorization:String,
+        @Path("id") id:String):Response<ResponseData>
 
 }

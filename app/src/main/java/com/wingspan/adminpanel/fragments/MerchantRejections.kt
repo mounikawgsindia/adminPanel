@@ -40,7 +40,7 @@ class MerchantRejections : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        fetchDataFromNetwork()
+        fetchDataFromNetwork(false)
         setUI()
         setObserver()
         setRecycleView()
@@ -50,7 +50,7 @@ class MerchantRejections : Fragment() {
     private fun setUI(){
         binding.apply{
             swipeRefreshLayout.setOnRefreshListener {
-                fetchDataFromNetwork()
+                fetchDataFromNetwork(true)
             }
             rejectedMerchantRv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -96,17 +96,17 @@ class MerchantRejections : Fragment() {
         viewModel.merchatApprovedAwaitResponse.observe(viewLifecycleOwner) { response ->
 
             Extensions.showCustomSnackbar(requireContext(),response?.message.toString(), R.color.green)
-            fetchDataFromNetwork()
+            fetchDataFromNetwork(false)
         }
         viewModel.merchatApprovedAwaitError.observe(viewLifecycleOwner) { error ->
 
             Extensions.showCustomSnackbar(requireContext(),error, R.color.light_red)
         }
     }
-    private fun fetchDataFromNetwork(){
+    private fun fetchDataFromNetwork(isRefresh:Boolean){
 
         if(Extensions.isNetworkAvailable(requireActivity())){
-            viewModel.rejectedMerchatApi()
+            viewModel.rejectedMerchatApi(isRefresh)
         }else{
             Extensions.showNetworkAlertDialog(requireContext())
         }

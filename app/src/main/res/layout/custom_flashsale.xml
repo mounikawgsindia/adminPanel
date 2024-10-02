@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="8dp"
+    android:paddingEnd="8dp"
+    android:background="@color/light_white"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardElevation="2dp"
+        app:cardCornerRadius="8dp"
+        app:cardUseCompatPadding="true"
+        app:cardBackgroundColor="@color/white"
+        tools:ignore="MissingConstraints">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="130dp"
+                android:orientation="horizontal"
+                android:padding="8dp"
+                android:baselineAligned="false">
+                <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.5">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/image"
+                        android:layout_width="match_parent"
+                        android:layout_height="110dp"
+                        android:scaleType="centerCrop"
+                        app:srcCompat="@drawable/products_image"
+                        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Corner"/>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="5dp"
+                        app:cardElevation="2dp"
+                        app:layout_constraintBottom_toTopOf="@+id/image"
+                        app:layout_constraintEnd_toEndOf="@+id/image"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="@+id/image"
+                        app:layout_constraintTop_toTopOf="@+id/image"
+                        app:layout_constraintVertical_bias="0.0"
+                        tools:ignore="MissingConstraints">
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            tools:ignore="MissingConstraints"
+                            >
+                            <TextView
+                                android:id="@+id/discount"
+                                style="@style/SmallTextStyle_black"
+                                android:layout_width="50dp"
+                                android:maxLines="1"
+                                android:ellipsize="end"
+                                android:layout_height="match_parent"
+                                android:text="@string/new_29_off"
+                                android:padding="3dp"
+                                android:textColor="@color/white"
+                                android:background="@color/light_red" />
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                </FrameLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_weight="2.5"
+                    android:padding="8dp">
+
+                    <TextView
+                        android:id="@+id/title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:padding="3dp"
+                        android:ellipsize="end"
+                        style="@style/NormalTextStyle_black"
+                        android:text="@string/title" />
+                    <TextView
+                        android:id="@+id/description"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:padding="3dp"
+                        android:ellipsize="end"
+                        style="@style/NormalTextStyle_black"
+                        android:text="@string/description" />
+                    <TextView
+                        android:id="@+id/discount_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:padding="3dp"
+                        android:ellipsize="end"
+                        style="@style/NormalTextStyle_black"
+                        android:textColor="@color/light_red"
+                        android:text="Discount Text" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                          >
+
+                            <TextView
+                                android:id="@+id/discount_cost"
+                                style="@style/HeadingTextStyle_black"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/cost" />
+
+                            <TextView
+                                android:id="@+id/main_cost"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                style="@style/SmallTextStyle_grey"
+                                android:gravity="center"
+                                android:layout_marginStart="8dp"
+                                android:text="@string/_150" />
+                        </LinearLayout>
+
+<!--                    </LinearLayout>-->
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+         android:layout_height="1.5dp"
+         android:background="@drawable/search_bg_border_grey"
+         android:backgroundTint="@color/textgrey"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+
+            android:baselineAligned="false">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:layout_weight="1.5">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="3dp"
+                    android:gravity="center_vertical"
+                    tools:ignore="NestedWeights">
+
+                <TextView
+                    style="@style/SmallTextStyle_black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Shop Name :"
+                    android:textColor="@color/black"
+                    tools:ignore="HardcodedText" />
+                <TextView
+                    android:id="@+id/shop_name"
+                    style="@style/SmallTextStyle_black"
+                    android:layout_width="wrap_content"
+                    android:maxLines="1"
+                    android:text="KFC"
+                    android:ellipsize="end"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/violet" />
+                </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:padding="3dp"
+                android:gravity="center_vertical"
+                tools:ignore="NestedWeights">
+
+                <TextView
+                    style="@style/SmallTextStyle_black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Shop Address :"
+                    android:textColor="@color/black"
+                    tools:ignore="HardcodedText" />
+                <TextView
+                    android:id="@+id/shop_address"
+                    style="@style/SmallTextStyle_black"
+                    android:layout_width="wrap_content"
+                    android:maxLines="2"
+                    android:ellipsize="end"
+                    android:text="Panjagutta,hyderabad"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/violet" />
+            </LinearLayout>
+<!--            <LinearLayout-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:orientation="horizontal"-->
+<!--                android:gravity="center_vertical"-->
+<!--                tools:ignore="NestedWeights">-->
+
+<!--                <TextView-->
+
+<!--                    style="@style/SmallTextStyle_black"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="End Time :"-->
+<!--                    android:padding="3dp"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    tools:ignore="HardcodedText" />-->
+<!--                <TextView-->
+<!--                    android:id="@+id/end_time"-->
+<!--                    style="@style/SmallTextStyle_black"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:maxLines="1"-->
+<!--                    android:ellipsize="end"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:textColor="@color/violet" />-->
+<!--            </LinearLayout>-->
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:orientation="vertical"
+               android:gravity="center"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="5dp"
+                >
+                <TextView
+                    android:id="@+id/approved"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_bg_green"
+                    style="@style/NormalTextStyle_white"
+                    android:text="@string/accept"
+                    android:padding="3dp"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    tools:ignore="ContentDescription,NestedWeights,UseAppTint" />
+
+                <TextView
+                    android:id="@+id/rejected"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_bg_red"
+                    style="@style/NormalTextStyle_white"
+                    android:layout_marginTop="5dp"
+                    android:text="Reject"
+                    android:textStyle="bold"
+                    android:padding="3dp"
+                    android:gravity="center"
+                    tools:ignore="ContentDescription,NestedWeights,UseAppTint" />
+            </LinearLayout>
+        </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

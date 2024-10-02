@@ -21,13 +21,15 @@
         tools:ignore="MissingConstraints">
 
         <EditText
-            style="@style/NormalTextStyle_black"
+            style="@style/NormalTextStyle_white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/search_bg_border_grey"
             android:hint="@string/look_up_products_by_name"
+            android:textColorHint="@color/white"
             android:drawableStart="@drawable/search"
             android:padding="10dp"
+          android:drawableTint="@color/white"
             android:drawablePadding="10dp"
             tools:ignore="Autofill,TextFields" />
     </LinearLayout>
@@ -57,7 +59,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:background="@drawable/merchat_approval"
+                android:background="@drawable/merchant_approved"
                 >
             </androidx.constraintlayout.widget.ConstraintLayout>
 
