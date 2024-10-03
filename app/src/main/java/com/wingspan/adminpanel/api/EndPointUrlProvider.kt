@@ -91,8 +91,6 @@ interface EndPointUrlProvider {
         @Path("id") id:String):Response<ResponseData>
 
     @PUT("admin/approve-all")
-    suspend fun allApproveFlashSale(
-        @Header("Authorization") authorization:String,
-        @Path("id") id:String):Response<ResponseData>
+    suspend fun allApproveFlashSale():Response<ResponseData>
 
 }

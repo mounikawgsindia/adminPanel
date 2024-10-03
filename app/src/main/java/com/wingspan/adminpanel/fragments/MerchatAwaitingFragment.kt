@@ -75,11 +75,17 @@ class MerchatAwaitingFragment : Fragment() {
                 binding.pendingMerchantRv.visibility = View.VISIBLE
                 binding.listEmpty.visibility = View.GONE
                 maerchantAdapter.setData(merchantList)
-                val tabLayout = requireActivity().findViewById<TabLayout>(R.id.tab_layout)
-                val rejectTab = tabLayout.getTabAt(0) // Assuming "Reject" is the second tab
-                val badge = rejectTab?.orCreateBadge
-                badge?.number = merchantList.size // Example badge count
-                badge?.isVisible = true // Make the badge visible
+
+                try{
+                    val tabLayout = requireActivity().findViewById<TabLayout>(R.id.tab_layout)
+                    val rejectTab = tabLayout.getTabAt(0) // Assuming "Reject" is the second tab
+                    val badge = rejectTab?.orCreateBadge
+                    badge?.number = merchantList.size // Example badge count
+                    badge?.isVisible = true // Make the badge visible
+                }catch (e:Exception){
+
+                }
+
             }
         }
         viewModel.isLoading.observe(requireActivity()){isLoading->

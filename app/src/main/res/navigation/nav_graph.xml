@@ -22,7 +22,11 @@
       android:name="com.wingspan.adminpanel.fragments.MerchantProductsArrovalFragment"
       android:label="@string/product_approval"
       tools:layout="@layout/fragment_merchant_products_arroval"/>
-
+    <fragment
+        android:id="@+id/stock"
+        android:name="com.wingspan.adminpanel.fragments.StockDetailsFragment"
+        android:label="@string/stock_details"
+        tools:layout="@layout/fragment_stock_details"/>
 
   <fragment
       android:id="@+id/account"

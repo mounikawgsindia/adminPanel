@@ -20,7 +20,8 @@
     <string name="enter_mobile_number">Enter Mobile Number</string>
     <string name="enter_name">Enter Name</string>
     <string name="enter_email">Enter Email</string>
-    <string name="full_name">Full Name</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
     <string name="password">password</string>
     <string name="enter_password">Enter password</string>
     <string name="shop_name">shop name</string>
@@ -45,7 +46,7 @@
     <string name="weight_grams">weight grams</string>
     <string name="cost">100</string>
     <string name="new_29_off">29% off</string>
-    <string name="stock_details">Stock Details</string>
+    <string name="stock_details">Stock</string>
     <string name="account">Account</string>
     <!-- TODO: Remove or change this placeholder text -->
 
@@ -71,12 +72,14 @@
     <string name="enter_price">Enter Price</string>
     <string name="flash_sale_upload">Upload Flash Sale</string>
     <string name="look_up_products_by_name">Look up products by name</string>
-    <string name="merchant_approval">Merch Verify</string>
-    <string name="product_approval">Prod Approval</string>
+    <string name="merchant_approval">Merchant</string>
+    <string name="product_approval">Products</string>
     <string name="pincode">Pincode :</string>
     <string name="gst_number">GST Number :</string>
     <string name="merchant_verification">Merchant Verification</string>
     <string name="accept">Approve</string>
     <string name="new_arrivals">New Arrivals</string>
     <string name="flash_sale">Flash Sale</string>
+    <string name="categories">Categories</string>
+    <string name="approve_all"><u>Approve All</u></string>
 </resources>

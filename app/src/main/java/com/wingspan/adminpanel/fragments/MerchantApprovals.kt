@@ -6,9 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.tabs.TabLayoutMediator
+import com.wingspan.adminpanel.R
 import com.wingspan.adminpanel.adapter.MerchantAdapter
 import com.wingspan.adminpanel.databinding.FragmentMerchantApprovalsBinding
 import com.wingspan.adminpanel.databinding.FragmentMerchantBinding
+import com.wingspan.adminpanel.extensions.Extensions
 
 
 class MerchantApprovals : Fragment() {
@@ -26,6 +28,7 @@ class MerchantApprovals : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Extensions.setStatusBarColor(requireActivity(), R.color.green)
         setViewPager()
     }
 

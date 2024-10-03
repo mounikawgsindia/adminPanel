@@ -50,11 +50,16 @@ class FlashSaleViewModel:ViewModel() {
     private val _flashSaleApprovedAwaitError= MutableLiveData<String>()
     val flashSaleApprovedAwaitError: LiveData<String> get() =_flashSaleApprovedAwaitError
 
+
+    private val _flashSaleApprovedAllResponse= MutableLiveData<ResponseData?>()
+    val flashSaleApprovedAllResponse: LiveData<ResponseData?> get() =_flashSaleApprovedAllResponse
+
+    private val _flashSaleApprovedAllError= MutableLiveData<String>()
+    val flashSaleApprovedAllError: LiveData<String> get() =_flashSaleApprovedAllError
     private val _isLoading= MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> get() =_isLoading
 
     fun approvedFlashSaleApi(isRefresh:Boolean){
-
 
         viewModelScope.launch {
             try{
@@ -300,5 +305,48 @@ class FlashSaleViewModel:ViewModel() {
             }
         }
     }
+    fun approveallApi(){
+        viewModelScope.launch {
+            try{
+                // _isLoading.value=true
+                Log.d("approveallApi","approveallApi request--->")
+                val response= withContext(Dispatchers.IO){
+                    BaseUrlProvider.create().allApproveFlashSale()
+                }
 
+                Log.d("acceptShopkeeperApi","acceptShopkeeperApi response--->...${response.code()}...${response.body()}")
+                when (response.code()){
+                    200->{
+                        val responseData = response.body()
+                        // Cache the response
+
+                        if (responseData != null) {
+                            _flashSaleApprovedAllResponse.postValue(responseData)
+
+
+                        } else {
+                            _flashSaleApprovedAllError.postValue("Empty data")
+                        }
+                    }
+                    in 400..500 -> {
+                        Extensions.handleErrorResponse(response.errorBody()) { errorMessage ->
+                            _flashSaleApprovedAllError.postValue(errorMessage)
+                        }
+                    }
+                    else -> {
+                        Log.d("response","--->error${response.code()}")
+                        _flashSaleApprovedAllError.postValue("Unknown error occurred")
+                    }
+
+                } }
+            catch(e:Exception){
+
+                _flashSaleApprovedAllError.postValue("Failed to fetch data:NetWork Issue ${e.message}")
+                Log.e("error", "Failed to fetch data:NetWork Issue ${e.message}")
+            }
+            finally{
+                //_isLoading.value=false
+            }
+        }
+    }
 }

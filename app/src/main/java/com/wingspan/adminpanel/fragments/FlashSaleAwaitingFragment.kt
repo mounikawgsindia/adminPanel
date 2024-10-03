@@ -1,28 +1,37 @@
 package com.wingspan.adminpanel.fragments
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.widget.AppCompatButton
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.tabs.TabLayout
 import com.wingspan.adminpanel.R
+import com.wingspan.adminpanel.activity.LoginActivity
 import com.wingspan.adminpanel.adapter.FlashSaleApprovedAdapter
 import com.wingspan.adminpanel.adapter.FlashSaleAwaitingAdapter
 import com.wingspan.adminpanel.databinding.FragmentFlashSaleAwaitingBinding
 import com.wingspan.adminpanel.extensions.Extensions
+import com.wingspan.adminpanel.extensions.Extensions.setDebouncedClickListener
 import com.wingspan.adminpanel.model.ApprovedFlashSale
 import com.wingspan.adminpanel.model.AwaitingFlashSale
+import com.wingspan.adminpanel.utils.UserPreferences
 import com.wingspan.adminpanel.viewmodel.FlashSaleViewModel
 
 
 class FlashSaleAwaitingFragment : Fragment() {
     lateinit var _binding: FragmentFlashSaleAwaitingBinding
     val binding get()=_binding
+    lateinit var alertDialog:AlertDialog
     lateinit var flashSaleAdapter: FlashSaleAwaitingAdapter
     var flashSaleList=ArrayList<AwaitingFlashSale>()
     private val viewModel: FlashSaleViewModel by viewModels()
@@ -54,6 +63,10 @@ class FlashSaleAwaitingFragment : Fragment() {
                     binding.swipeRefreshLayout.isEnabled = isAtTop
                 }
             })
+
+            approveAll.setDebouncedClickListener(){
+                showAlertDialog()
+            }
         }
     }
     private fun setObserver(){
@@ -72,12 +85,13 @@ class FlashSaleAwaitingFragment : Fragment() {
                 binding.flashsaleAwaitingRv.visibility = View.GONE
                 binding.listEmpty.visibility = View.VISIBLE
                 binding.listEmpty.text="Empty List"
-
+                binding.approveAll.visibility=View.GONE
             }
             else{
                 binding.flashsaleAwaitingRv.visibility = View.VISIBLE
                 binding.listEmpty.visibility = View.GONE
                 flashSaleAdapter.setData(flashSaleList)
+                binding.approveAll.visibility=View.VISIBLE
                 val tabLayout = requireActivity().findViewById<TabLayout>(R.id.tab_layout_flashsale)
                 val rejectTab = tabLayout.getTabAt(0) // Assuming "Reject" is the second tab
                 val badge = rejectTab?.orCreateBadge
@@ -118,6 +132,21 @@ class FlashSaleAwaitingFragment : Fragment() {
             layoutManager= LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL,false)
             adapter=flashSaleAdapter
         }
+    }
+    private fun showAlertDialog(){
+        val builder= AlertDialog.Builder(requireContext())
+        builder.setTitle("Logout")
+        builder.setMessage("Are you sure want to Logout?")
+        builder.setPositiveButton("OK"){dialog,which->
+            viewModel.approveallApi()
+        }
+        builder.setNegativeButton("CANCEL"){dialog,which->
+            dialog.dismiss()
+        }
+        alertDialog=builder.create()
+        alertDialog.setCancelable(false)
+        alertDialog.show()
+
     }
     override fun onDestroyView() {
         super.onDestroyView()

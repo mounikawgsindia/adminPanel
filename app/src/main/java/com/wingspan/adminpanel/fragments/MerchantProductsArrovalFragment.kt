@@ -11,6 +11,7 @@ import com.wingspan.adminpanel.adapter.MerchantAdapter
 import com.wingspan.adminpanel.adapter.MerchantProductsAdapter
 import com.wingspan.adminpanel.databinding.FragmentMerchantBinding
 import com.wingspan.adminpanel.databinding.FragmentMerchantProductsArrovalBinding
+import com.wingspan.adminpanel.extensions.Extensions
 
 
 class MerchantProductsArrovalFragment : Fragment() {
@@ -29,6 +30,7 @@ class MerchantProductsArrovalFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Extensions.setStatusBarColor(requireActivity(), R.color.green)
         setViewPager()
     }
 

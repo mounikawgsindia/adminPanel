@@ -3,6 +3,9 @@ package com.wingspan.adminpanel.extensions
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
+import android.content.res.Resources
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Rect
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
@@ -27,6 +30,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import com.wingspan.adminpanel.R
 import com.wingspan.adminpanel.model.ErrorResponse
+import com.wingspan.adminpanel.model.ErrorResponse1
 import okhttp3.ResponseBody
 
 import java.io.FileOutputStream
@@ -151,7 +155,7 @@ object Extensions {
             val errorString = errorBody.string()
             val gson = Gson()
             try {
-                val errorResponse = gson.fromJson(errorString, ErrorResponse::class.java)
+                val errorResponse = gson.fromJson(errorString, ErrorResponse1::class.java)
                 errorCallback(errorResponse.error)
             } catch (e: Exception) {
                 Log.e("Error", "Parsing error response failed", e)
@@ -159,7 +163,7 @@ object Extensions {
             }
         }
     }
-    fun handleErrorMessageResponse(responseBody: ResponseBody?, errorCallback: (String) -> Unit) {
+    fun handleErrorMessageResponse(responseBody:  ResponseBody?, errorCallback: (String) -> Unit) {
         responseBody?.let { errorBody ->
             val errorString = errorBody.string()
             val gson = Gson()
@@ -248,5 +252,38 @@ object Extensions {
             Log.e("DecryptionError", "Error retrieving credentials", e)
             ""
         }
+    }
+    fun decodeSampledBitmapFromResource(res: Resources, resId: Int, reqWidth: Int, reqHeight: Int): Bitmap {
+        // First decode with inJustDecodeBounds=true to check dimensions
+        val options = BitmapFactory.Options().apply {
+            inJustDecodeBounds = true
+        }
+        BitmapFactory.decodeResource(res, resId, options)
+
+        // Calculate inSampleSize
+        options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight)
+
+        // Decode bitmap with inSampleSize set
+        options.inJustDecodeBounds = false
+        return BitmapFactory.decodeResource(res, resId, options)
+    }
+
+    fun calculateInSampleSize(options: BitmapFactory.Options, reqWidth: Int, reqHeight: Int): Int {
+        // Raw height and width of image
+        val (height: Int, width: Int) = options.run { outHeight to outWidth }
+        var inSampleSize = 1
+
+        if (height > reqHeight || width > reqWidth) {
+            val halfHeight: Int = height / 2
+            val halfWidth: Int = width / 2
+
+            // Calculate the largest inSampleSize value that is a power of 2 and keeps both
+            // height and width larger than the requested height and width.
+            while (halfHeight / inSampleSize >= reqHeight && halfWidth / inSampleSize >= reqWidth) {
+                inSampleSize *= 2
+            }
+        }
+
+        return inSampleSize
     }
 }

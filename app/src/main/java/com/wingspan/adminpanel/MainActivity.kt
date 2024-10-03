@@ -56,7 +56,10 @@ class MainActivity : AppCompatActivity() {
                     navController.navigate(R.id.prod_approval)
                     true
                 }
-
+                R.id.stock -> {
+                    navController.navigate(R.id.stock)
+                    true
+                }
                 R.id.account -> {
                     navController.navigate(R.id.account)
                     true

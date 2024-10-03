@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+   >
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/cl"
+    android:layout_width="match_parent"
+    android:layout_height="56dp"
+    tools:ignore="MissingConstraints"
+    android:padding="8dp"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent">
+    <TextView
+        android:id="@+id/textView22"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/create_account"
+        android:gravity="center"
+        android:layout_marginStart="10dp"
+        style="@style/MainHeadingTextStyle"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/back_iv"
+       app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/back_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/back_icon"
+        tools:ignore="ContentDescription" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="56dp"
+    android:id="@+id/root1"
+    app:layout_constraintTop_toBottomOf="@+id/cl">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp"
+
+        tools:ignore="MissingConstraints">
+
+    <!-- first name-->
+    <TextView
+        android:id="@+id/firstnameTV"
+        style="@style/NormalTextStyle_green"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/first_name"
+
+        android:textAllCaps="true"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/firstnamET"
+        style="@style/NormalTextStyle_black"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="@drawable/edttext_bottom_line_grey"
+        android:hint="@string/enter_name"
+        android:inputType="text"
+        android:text="mounika"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView25" />
+        <TextView
+            android:id="@+id/firstNameErrorTV"
+            style="@style/ErrorAppearance"
+            android:layout_gravity="start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:visibility="gone"
+            android:layout_marginStart="3dp"
+
+            />
+        <!-- last name-->
+        <TextView
+            android:id="@+id/lastnameTv"
+            style="@style/NormalTextStyle_green"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/username"
+            android:textAllCaps="true"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <EditText
+            android:id="@+id/lastname_et"
+            style="@style/NormalTextStyle_black"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:background="@drawable/edttext_bottom_line_grey"
+            android:hint="@string/enter_name"
+            android:inputType="text"
+            android:text="mounika"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView25" />
+        <TextView
+            android:id="@+id/lastnameErrorTV"
+            style="@style/ErrorAppearance"
+            android:layout_gravity="start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:visibility="gone"
+            android:layout_marginStart="3dp"
+
+            />
+    <!-- user name-->
+    <TextView
+        android:id="@+id/username"
+        style="@style/NormalTextStyle_green"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/username"
+        android:textAllCaps="true"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/username_et"
+        style="@style/NormalTextStyle_black"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="@drawable/edttext_bottom_line_grey"
+        android:hint="@string/enter_name"
+        android:inputType="text"
+        android:text="mounika"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView25" />
+        <TextView
+            android:id="@+id/usernameErrorTV"
+            style="@style/ErrorAppearance"
+            android:layout_gravity="start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:visibility="gone"
+            android:layout_marginStart="3dp"
+
+            />
+    <!-- email-->
+    <TextView
+        android:id="@+id/emailTV"
+        style="@style/NormalTextStyle_green"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/email"
+        android:textAllCaps="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextText4" />
+
+    <EditText
+        android:id="@+id/emailET"
+        style="@style/NormalTextStyle_black"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="@drawable/edttext_bottom_line_grey"
+        android:hint="@string/enter_email"
+        android:inputType="text"
+        android:text="mounika.moravaneni14@gmail.com"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView26" />
+        <TextView
+            android:id="@+id/emailErrorTV"
+            style="@style/ErrorAppearance"
+            android:layout_gravity="start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:visibility="gone"
+            android:layout_marginStart="3dp"
+
+            />
+    <!-- password-->
+    <TextView
+        android:id="@+id/password"
+        style="@style/NormalTextStyle_green"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/password"
+        android:textAllCaps="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextText4" />
+
+    <EditText
+        android:id="@+id/password_et"
+        style="@style/NormalTextStyle_black"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="@drawable/edttext_bottom_line_grey"
+        android:hint="@string/enter_password"
+        android:inputType="textPassword"
+        android:text="Mounika@123"
+        android:drawableEnd="@drawable/password_eye"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView26" />
+        <TextView
+            android:id="@+id/passwordErrorTV"
+            style="@style/ErrorAppearance"
+            android:layout_gravity="start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:visibility="gone"
+            android:layout_marginStart="3dp"
+
+            />
+    <!-- mobile number-->
+    <TextView
+        android:id="@+id/textView27"
+        style="@style/NormalTextStyle_green"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/mobile_number"
+        android:textAllCaps="true"
+        app:layout_constraintTop_toBottomOf="@+id/editTextText5"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="-10dp" />
+
+    <EditText
+        android:id="@+id/mobileNumberEt"
+        style="@style/NormalTextStyle_black"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="@drawable/edttext_bottom_line_grey"
+        android:hint="@string/enter_mobile_number"
+        android:inputType="number"
+        android:maxLength="10"
+        android:text="8125342434"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView27" />
+
+        <TextView
+            android:id="@+id/mobileNumberErrorTV"
+            style="@style/ErrorAppearance"
+            android:layout_gravity="start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:visibility="gone"
+            android:layout_marginStart="3dp"
+
+            />
+
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/creat_account"
+        style="@style/NormalTextStyle_white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/button_bg_green"
+        android:text="@string/create_account"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextText6"
+        tools:ignore="MissingConstraints" />
+
+
+        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/button">
+
+        <TextView
+            android:id="@+id/textView19"
+            style="@style/NormalTextStyle_black"
+            android:layout_width="wrap_content"
+
+
+            android:layout_height="wrap_content"
+            android:text="@string/already_have_account"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button" />
+
+        <TextView
+            android:id="@+id/login_tv"
+            style="@style/NormalTextStyle_green"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:background="@drawable/textview_ripple"
+            android:text="@string/login"
+            android:textAllCaps="true"
+            android:textStyle="bold"
+
+            />
+    </LinearLayout>
+    </LinearLayout>
+</ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+    <FrameLayout android:id="@+id/loader"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#80000000"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+    </FrameLayout>
+</FrameLayout>

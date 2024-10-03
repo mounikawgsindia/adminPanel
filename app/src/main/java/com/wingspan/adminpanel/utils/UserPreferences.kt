@@ -8,6 +8,7 @@ class UserPreferences(context: Context) {
     companion object{
         const val KEY_ID="shopkeeperid"
         const val KEY_NAME="username"
+
         const val IS_LOGGED_IN="isLoggedIn"
     }
     @SuppressLint("CommitPrefEdits")

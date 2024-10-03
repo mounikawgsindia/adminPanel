@@ -43,7 +43,9 @@ class HomeFragment : Fragment() {
             prodLl.setDebouncedClickListener {
                 findNavController().navigate(R.id.prod_approval)
             }
-
+            stockDetails.setDebouncedClickListener {
+                findNavController().navigate(R.id.stock)
+            }
         }
     }
 

@@ -58,7 +58,7 @@
             android:layout_height="30dp"
             android:background="@drawable/edttext_bottom_line_grey"
             android:hint="@string/enter_name"
-            android:text="mounikaMoravaneni"
+            android:text="student"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView27"
@@ -95,7 +95,7 @@
             android:background="@drawable/edttext_bottom_line_grey"
             android:hint="@string/enter_password"
             android:inputType="textPassword"
-            android:text="8125342434"
+            android:text="123456789"
             android:drawableEnd="@drawable/password_eye"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView26" />

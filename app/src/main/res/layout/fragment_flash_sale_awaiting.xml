@@ -16,10 +16,28 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <TextView
+                android:id="@+id/approve_all"
+                style="@style/MainHeadingTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:background="@drawable/textview_ripple"
+                android:text="@string/approve_all"
+                android:textColor="@color/green"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+
+                />
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/flashsale_awaiting_rv"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/approve_all"
+                app:layout_constraintBottom_toBottomOf="parent"
                 tools:listitem="@layout/custom_flashsale"/>
 
             <TextView

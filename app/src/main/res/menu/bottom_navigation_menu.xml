@@ -9,10 +9,11 @@
 
     <item android:id="@+id/prod_approval"
         android:title="@string/product_approval"
+        android:icon="@drawable/product"/>
+    <item android:id="@+id/stock"
+        android:title="@string/stock_details"
         android:icon="@drawable/stock"/>
-
     <item android:id="@+id/account"
         android:title="@string/account"
-
         android:icon="@drawable/account_icon"/>
 </menu>

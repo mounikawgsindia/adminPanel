@@ -65,8 +65,8 @@ class LoginActivityViewModel:ViewModel() {
                     }
                     in 400..500-> {
                         Log.d("loginApiCall","loginApiCall response--->...${response.code()}...${response.errorBody()?.string()}")
-                        Extensions.handleErrorResponse(response.errorBody()){ errorMessage->
-                            _shopKeeperLoginError.postValue(errorMessage)
+                        Extensions.handleErrorMessageResponse(response.errorBody()){ errorMessage->
+                            _shopKeeperLoginError.postValue("Invalid username or password")
                         }
                     }
 

@@ -46,7 +46,7 @@ class LoginActivity : AppCompatActivity() {
                 viewModel.validateInputs(userName,password)
             }
             register.setDebouncedClickListener(){
-                //startActivity(Intent(this@LoginActivity, RegistrationPage::class.java))
+                startActivity(Intent(this@LoginActivity, RegistrationPage::class.java))
             }
 
             passwordEt.setOnTouchListener { _, event ->
@@ -117,13 +117,13 @@ class LoginActivity : AppCompatActivity() {
             }
             viewModel.shopKeeperLoginError.observe(this@LoginActivity) { error ->
                 Log.d("shopKeeperRegistrationError","shopKeeperRegistrationError $error")
-                Extensions.showCustomSnackbar(this@LoginActivity,error,ContextCompat.getColor(this@LoginActivity,R.color.light_red))
+                Extensions.showCustomSnackbar(this@LoginActivity,error,R.color.light_red)
             }
             viewModel.shopKeeperLoginResponseSuccess.observe(this@LoginActivity){response->
                // Extensions.showCustomSnackbar(this@LoginActivity,response!!.message,ContextCompat.getColor(this@LoginActivity,R.color.green))
-//                sharedPreferences.saveData(response?.shopkeeper?.id!!,response.shopkeeper.username!!)
-//                startActivity(Intent(this@LoginActivity, MainActivity::class.java))
-//                finish()
+                sharedPreferences.saveData(response?.admin?.id!!,response.admin.username!!)
+                startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+                finish()
             }
         }
 
