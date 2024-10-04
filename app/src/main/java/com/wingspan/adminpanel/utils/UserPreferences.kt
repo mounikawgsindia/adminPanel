@@ -22,7 +22,11 @@ class UserPreferences(context: Context) {
     }
     @SuppressLint("CommitPrefEdits")
     fun logoutShopKeeper(){
-        sharedPreferences.edit().putBoolean(IS_LOGGED_IN,false)
+        sharedPreferences.edit().apply {
+            putBoolean(IS_LOGGED_IN, false)
+            apply() // Save changes
+        }
+
     }
     fun getUserId(): String? {
         return sharedPreferences.getString(KEY_ID,null)

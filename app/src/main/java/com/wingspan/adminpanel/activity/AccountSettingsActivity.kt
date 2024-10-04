@@ -36,9 +36,10 @@ class AccountSettingsActivity : AppCompatActivity() {
         builder.setPositiveButton("OK"){dialog,which->
             sharedPreferences= UserPreferences(this@AccountSettingsActivity)
             sharedPreferences.logoutShopKeeper()
-            val intent= Intent(this@AccountSettingsActivity, LoginActivity::class.java)
+            val intent = Intent(this@AccountSettingsActivity, LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
-           finish()
+            finish()
 
         }
         builder.setNegativeButton("CANCEL"){dialog,which->

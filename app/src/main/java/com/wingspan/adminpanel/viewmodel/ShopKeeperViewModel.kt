@@ -14,7 +14,6 @@ import com.wingspan.adminpanel.model.RejectedMerchants
 import com.wingspan.adminpanel.extensions.Extensions
 import com.wingspan.adminpanel.model.AwaitingMerchants
 import com.wingspan.adminpanel.model.ResponseData
-import com.wingspan.shopkeeper.api.ApiDataCache
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

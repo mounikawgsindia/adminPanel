@@ -1,5 +1,6 @@
 package com.wingspan.adminpanel.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -45,9 +46,11 @@ class CategoriesFragment : Fragment() {
         }
 
     }
+    @SuppressLint("NotifyDataSetChanged")
     private fun getCategoriesData(){
         categoryList.clear()
         val data= arrayListOf(
+            CategoriesModel(R.drawable.express_delivery,"9 minutes develory"),
             CategoriesModel(R.drawable.cat1,"Dailry & Cheese"),
             CategoriesModel(R.drawable.cat2,"Cold pressed juice"),
             CategoriesModel(R.drawable.cat3,"Fruits and vegitables"),

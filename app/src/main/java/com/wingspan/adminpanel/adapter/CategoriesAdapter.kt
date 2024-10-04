@@ -5,6 +5,7 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.wingspan.adminpanel.activity.CategoriesMainView
 import com.wingspan.adminpanel.databinding.CustomCategoriesBinding
 import com.wingspan.adminpanel.extensions.Extensions
 import com.wingspan.adminpanel.extensions.Extensions.setDebouncedClickListener
@@ -32,8 +33,8 @@ class CategoriesAdapter(val context: Context, val list:ArrayList<CategoriesModel
            categoryCI.setImageBitmap(bitmap)
            name.text=listData.describtion
            categoryCI.setDebouncedClickListener(){
-//               val intent = Intent(context, CategoriesMainView::class.java)
-//               context.startActivity(intent)
+               val intent = Intent(context, CategoriesMainView::class.java)
+               context.startActivity(intent)
            }
        }
     }

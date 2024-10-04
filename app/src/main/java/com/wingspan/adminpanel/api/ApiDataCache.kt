@@ -1,4 +1,4 @@
-package com.wingspan.shopkeeper.api
+package com.wingspan.adminpanel.api
 
 import android.util.LruCache
 
