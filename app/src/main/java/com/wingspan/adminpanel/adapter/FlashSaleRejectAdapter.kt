@@ -40,7 +40,7 @@ class FlashSaleRejectAdapter(val viewModel: FlashSaleViewModel, val context: Con
             discountText.text=listData.description
             discountCost.text=listData.dprice
             mainCost.text=listData.price
-           // endTime.text=listData.endTime
+            quantity.text=listData.quantity
             rejected.visibility= View.GONE
             mainCost.paintFlags = mainCost.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
             Glide.with(context)

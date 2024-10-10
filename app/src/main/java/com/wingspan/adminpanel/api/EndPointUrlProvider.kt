@@ -5,6 +5,7 @@ import com.wingspan.adminpanel.model.ApprovedFlashSale
 import com.wingspan.adminpanel.model.ApprovedMerchants
 import com.wingspan.adminpanel.model.AwaitingFlashSale
 import com.wingspan.adminpanel.model.AwaitingMerchants
+import com.wingspan.adminpanel.model.AwaitingNewArrivals
 import com.wingspan.adminpanel.model.FlashSaleResponse
 import com.wingspan.adminpanel.model.LoginRequest
 import com.wingspan.adminpanel.model.LoginResponse
@@ -92,5 +93,17 @@ interface EndPointUrlProvider {
 
     @PUT("admin/approve-all")
     suspend fun allApproveFlashSale():Response<ResponseData>
+
+    //new arrivals
+    @GET("admins/pending")
+    suspend fun awaitingNewArrivals():Response<List<AwaitingNewArrivals>>
+
+    @PUT("admins/approve/{id}")
+    suspend fun getAcceptNewArrivalsById(
+        @Path("id") id:String):Response<ResponseData>
+
+    @PUT("admins/reject/{id}")
+    suspend fun getRejectNewArrivalsById(
+        @Path("id") id:String):Response<ResponseData>
 
 }

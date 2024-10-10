@@ -30,7 +30,7 @@ class HomeFragment : Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        Extensions.setStatusBarColor(requireActivity(),R.color.white)
         setUI()
 
     }
@@ -45,6 +45,9 @@ class HomeFragment : Fragment() {
             }
             stockDetails.setDebouncedClickListener {
                 findNavController().navigate(R.id.stock)
+            }
+            accounts.setDebouncedClickListener {
+                findNavController().navigate(R.id.account)
             }
         }
     }

@@ -40,8 +40,9 @@ class FlashSaleAwaitingAdapter (val viewModel: FlashSaleViewModel, val context: 
             discountText.text=listData.description
             discountCost.text=listData.dprice
             mainCost.text=listData.price
-            // endTime.text=listData.endTime
-            approved.visibility= View.GONE
+
+            quantity.text=listData.quantity
+
             mainCost.paintFlags = mainCost.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
             Glide.with(context)
                 .load(listData.image).override(200, 200)

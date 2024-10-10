@@ -3,22 +3,20 @@ package com.wingspan.adminpanel.adapter
 import android.content.Context
 import android.graphics.Paint
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.wingspan.adminpanel.R
 import com.wingspan.adminpanel.databinding.CustomFlashsaleBinding
-import com.wingspan.adminpanel.databinding.CustomMernantPendingListBinding
 import com.wingspan.adminpanel.extensions.Extensions.setDebouncedClickListener
-import com.wingspan.adminpanel.model.ApprovedFlashSale
-import com.wingspan.adminpanel.model.ApprovedMerchants
+import com.wingspan.adminpanel.model.AwaitingFlashSale
+import com.wingspan.adminpanel.model.AwaitingNewArrivals
 import com.wingspan.adminpanel.viewmodel.FlashSaleViewModel
-import com.wingspan.adminpanel.viewmodel.ShopKeeperViewModel
+import com.wingspan.adminpanel.viewmodel.NewArrivalsViewModel
 
-class FlashSaleApprovedAdapter(val viewModel: FlashSaleViewModel, val context: Context, var list:ArrayList<ApprovedFlashSale>):
-    RecyclerView.Adapter<FlashSaleApprovedAdapter.ViewHolder> (){
+class NewArrivalsAwaitingAdapter(val viewModel: NewArrivalsViewModel, val context: Context, var list:ArrayList<AwaitingNewArrivals>):
+    RecyclerView.Adapter<NewArrivalsAwaitingAdapter.ViewHolder> (){
 
     class ViewHolder(var binding: CustomFlashsaleBinding) : RecyclerView.ViewHolder(binding.root){
 
@@ -42,20 +40,23 @@ class FlashSaleApprovedAdapter(val viewModel: FlashSaleViewModel, val context: C
             discountText.text=listData.description
             discountCost.text=listData.dprice
             mainCost.text=listData.price
+
             quantity.text=listData.quantity
 
-            approved.visibility= View.GONE
             mainCost.paintFlags = mainCost.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
             Glide.with(context)
                 .load(listData.image).override(200, 200)
                 .diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.drawable.defaultfood_image).error(
                     R.drawable.defaultfood_image).into(image)
+            approved.setDebouncedClickListener(){
+                viewModel.acceptNewArrivalsApi(listData.id.toString(),context)
+            }
             rejected.setDebouncedClickListener {
-                viewModel.rejectFlashSaleApi(listData.id.toString(),context)
+                viewModel.rejectNewArrivalsApi(listData.id.toString(),context)
             }
         }
     }
-    fun setData(newData:ArrayList<ApprovedFlashSale>){
+    fun setData(newData:ArrayList<AwaitingNewArrivals>){
         list=newData
         notifyDataSetChanged()
     }

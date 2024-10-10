@@ -132,6 +132,7 @@
                                 android:gravity="center"
                                 android:layout_marginStart="8dp"
                                 android:text="@string/_150" />
+
                         </LinearLayout>
 
 <!--                    </LinearLayout>-->
@@ -207,32 +208,35 @@
                     android:text="Panjagutta,hyderabad"
                     android:layout_height="wrap_content"
                     android:textColor="@color/violet" />
+
             </LinearLayout>
-<!--            <LinearLayout-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:orientation="horizontal"-->
-<!--                android:gravity="center_vertical"-->
-<!--                tools:ignore="NestedWeights">-->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:padding="3dp"
+                    android:gravity="center_vertical"
+                    tools:ignore="NestedWeights">
 
-<!--                <TextView-->
+                    <TextView
+                        style="@style/SmallTextStyle_black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Quantity :"
+                        android:textColor="@color/black"
+                        tools:ignore="HardcodedText" />
+                    <TextView
+                        android:id="@+id/quantity"
+                        style="@style/SmallTextStyle_black"
+                        android:layout_width="wrap_content"
+                        android:maxLines="2"
+                        android:ellipsize="end"
+                        android:text="3"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/violet" />
 
-<!--                    style="@style/SmallTextStyle_black"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="End Time :"-->
-<!--                    android:padding="3dp"-->
-<!--                    android:textColor="@color/black"-->
-<!--                    tools:ignore="HardcodedText" />-->
-<!--                <TextView-->
-<!--                    android:id="@+id/end_time"-->
-<!--                    style="@style/SmallTextStyle_black"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:maxLines="1"-->
-<!--                    android:ellipsize="end"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:textColor="@color/violet" />-->
-<!--            </LinearLayout>-->
+                </LinearLayout>
+
             </LinearLayout>
             <LinearLayout
                 android:layout_width="0dp"

@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.wingspan.adminpanel.activity.FlashSaleApprovalsActivity
+import com.wingspan.adminpanel.activity.NewArrivalsActivity
 import com.wingspan.adminpanel.databinding.FragmentOffersBinding
 import com.wingspan.adminpanel.extensions.Extensions.setDebouncedClickListener
 
@@ -37,7 +38,10 @@ class OffersFragment : Fragment() {
                 val intent= Intent(requireActivity(), FlashSaleApprovalsActivity::class.java)
                 startActivity(intent)
             }
-
+            newArrivals.setDebouncedClickListener(){
+                val intent= Intent(requireActivity(), NewArrivalsActivity::class.java)
+                startActivity(intent)
+            }
         }
     }
     private fun setObservers(){
