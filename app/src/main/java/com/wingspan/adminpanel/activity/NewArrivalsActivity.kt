@@ -23,10 +23,10 @@ class NewArrivalsActivity: AppCompatActivity()  {
     private fun setViewPager(){
         binding.apply {
             flashSaleAdapter= NewArrivalsAdapter(this@NewArrivalsActivity)
-            viewpager.adapter=flashSaleAdapter
+            viewpagerNewArrivals.adapter=flashSaleAdapter
 
 
-            TabLayoutMediator(tabLayoutFlashsale,viewpager){tab,position->
+            TabLayoutMediator(tabLayoutFlashsale,viewpagerNewArrivals){tab,position->
                 tab.text= when(position){
                     0->"AWAITING"
                     1->"APPROVALS"

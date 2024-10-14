@@ -9,26 +9,28 @@ import androidx.lifecycle.viewModelScope
 import com.wingspan.adminpanel.api.BaseUrlProvider
 import com.wingspan.adminpanel.extensions.Extensions
 import com.wingspan.adminpanel.model.ApprovedFlashSale
+import com.wingspan.adminpanel.model.ApprovedNewArrivals
 import com.wingspan.adminpanel.model.AwaitingFlashSale
 import com.wingspan.adminpanel.model.AwaitingNewArrivals
 import com.wingspan.adminpanel.model.RejectedFlashSale
+import com.wingspan.adminpanel.model.RejectedNewArrivals
 import com.wingspan.adminpanel.model.ResponseData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class NewArrivalsViewModel: ViewModel() {
-    private val _flashSaleAprovedResponse= MutableLiveData<List<ApprovedFlashSale>?>()
-    val flashSaleAprovedResponse: LiveData<List<ApprovedFlashSale>?> get() =_flashSaleAprovedResponse
+    private val _newArrivalsAprovedResponse= MutableLiveData<List<ApprovedNewArrivals>?>()
+    val newArrivalsAprovedResponse: LiveData<List<ApprovedNewArrivals>?> get() =_newArrivalsAprovedResponse
 
-    private val _flashSaleAprovedError= MutableLiveData<String>()
-    val flashSaleAprovedError: LiveData<String> get() =_flashSaleAprovedError
+    private val _newArrivalsAprovedError= MutableLiveData<String>()
+    val newArrivalsAprovedError: LiveData<String> get() =_newArrivalsAprovedError
 
-    private val _flashSaleRejectedResponse= MutableLiveData<List<RejectedFlashSale>?>()
-    val flashSaleRejectedResponse: LiveData<List<RejectedFlashSale>?> get() =_flashSaleRejectedResponse
+    private val _newArrivalsRejectedResponse= MutableLiveData<List<RejectedNewArrivals>?>()
+    val newArrivalsRejectedResponse: LiveData<List<RejectedNewArrivals>?> get() =_newArrivalsRejectedResponse
 
-    private val _flashSaleRejectedError= MutableLiveData<String>()
-    val flashSaleRejectedError: LiveData<String> get() =_flashSaleRejectedError
+    private val _newArrivalsRejectedError= MutableLiveData<String>()
+    val newArrivalsRejectedError: LiveData<String> get() =_newArrivalsRejectedError
 
     private val _newArrivalsPendingResponse= MutableLiveData<List<AwaitingNewArrivals>?>()
     val newArrivalsPendingResponse: LiveData<List<AwaitingNewArrivals>?> get() =_newArrivalsPendingResponse
@@ -49,15 +51,15 @@ class NewArrivalsViewModel: ViewModel() {
     val newArrivalsApprovedAwaitError: LiveData<String> get() =_newArrivalsApprovedAwaitError
 
 
-    private val _flashSaleApprovedAllResponse= MutableLiveData<ResponseData?>()
-    val flashSaleApprovedAllResponse: LiveData<ResponseData?> get() =_flashSaleApprovedAllResponse
+    private val _newArrivalsApprovedAllResponse= MutableLiveData<ResponseData?>()
+    val newArrivalsApprovedAllResponse: LiveData<ResponseData?> get() =_newArrivalsApprovedAllResponse
 
-    private val _flashSaleApprovedAllError= MutableLiveData<String>()
-    val flashSaleApprovedAllError: LiveData<String> get() =_flashSaleApprovedAllError
+    private val _newArrivalsApprovedAllError= MutableLiveData<String>()
+    val newArrivalsApprovedAllError: LiveData<String> get() =_newArrivalsApprovedAllError
     private val _isLoading= MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> get() =_isLoading
 
-    fun approvedFlashSaleApi(isRefresh:Boolean){
+    fun approvedNewArrivalsApi(isRefresh:Boolean){
 
         viewModelScope.launch {
             try{
@@ -65,39 +67,39 @@ class NewArrivalsViewModel: ViewModel() {
                     _isLoading.value=true
                 }
 
-                Log.d("approvedMerchatApi","approvedMerchatApi request--->")
+                Log.d("approvedNewArrivalsApi","approvedNewArrivalsApi request--->")
                 val response= withContext(Dispatchers.IO){
-                    BaseUrlProvider.create().approvedFlashSale()
+                    BaseUrlProvider.create().approvedNewArrivals()
                 }
 
-                Log.d("approvedMerchatApi","approvedMerchatApi response--->...${response.code()}...${response.body()}")
+                Log.d("approvedNewArrivalsApi","approvedNewArrivalsApi response--->...${response.code()}...${response.body()}")
                 when (response.code()){
                     200->{
                         val responseData = response.body()
                         // Cache the response
 
                         if (responseData != null) {
-                            _flashSaleAprovedResponse.postValue(responseData)
+                            _newArrivalsAprovedResponse.postValue(responseData)
 
                             Log.d("getFlashSale", "Caching response data: $responseData")
                         } else {
-                            _flashSaleAprovedError.postValue("Empty data")
+                            _newArrivalsAprovedError.postValue("Empty data")
                         }
                     }
                     in 400..500 -> {
                         Extensions.handleErrorResponse(response.errorBody()) { errorMessage ->
-                            _flashSaleAprovedError.postValue(errorMessage)
+                            _newArrivalsAprovedError.postValue(errorMessage)
                         }
                     }
                     else -> {
                         Log.d("response","--->error${response.code()}")
-                        _flashSaleAprovedError.postValue("Unknown error occurred")
+                        _newArrivalsAprovedError.postValue("Unknown error occurred")
                     }
 
                 } }
             catch(e:Exception){
 
-                _flashSaleAprovedError.postValue("Failed to fetch data:NetWork Issue ${e.message}")
+                _newArrivalsAprovedError.postValue("Please check your Network connection")
                 Log.e("error", "Failed to fetch data:NetWork Issue ${e.message}")
             }
             finally{
@@ -110,7 +112,7 @@ class NewArrivalsViewModel: ViewModel() {
 
 
 
-    fun rejectedFlashSaleApi(isRefresh :Boolean){
+    fun rejectedNewArrivalsApi(isRefresh :Boolean){
 
 
         viewModelScope.launch {
@@ -118,39 +120,39 @@ class NewArrivalsViewModel: ViewModel() {
                 if(!isRefresh){
                     _isLoading.value=true
                 }
-                Log.d("rejectedMerchatApi","rejectedMerchatApi request--->")
+                Log.d("rejectedNewArrivalsApi","rejectedNewArrivalsApi request--->")
                 val response= withContext(Dispatchers.IO){
-                    BaseUrlProvider.create().rejectedFlashSale()
+                    BaseUrlProvider.create().rejectedNewArrivals()
                 }
 
-                Log.d("rejectedMerchatApi","rejectedMerchatApi response--->...${response.code()}...${response.body()}")
+                Log.d("rejectedNewArrivalsApi","rejectedNewArrivalsApi response--->...${response.code()}...${response.body()}")
                 when (response.code()){
                     200->{
                         val responseData = response.body()
                         // Cache the response
 
                         if (responseData != null) {
-                            _flashSaleRejectedResponse.postValue(responseData)
+                            _newArrivalsRejectedResponse.postValue(responseData)
 
                             Log.d("getFlashSale", "Caching response data: $responseData")
                         } else {
-                            _flashSaleRejectedError.postValue("Empty data")
+                            _newArrivalsRejectedError.postValue("Empty data")
                         }
                     }
                     in 400..500 -> {
                         Extensions.handleErrorResponse(response.errorBody()) { errorMessage ->
-                            _flashSaleRejectedError.postValue(errorMessage)
+                            _newArrivalsRejectedError.postValue(errorMessage)
                         }
                     }
                     else -> {
                         Log.d("response","--->error${response.code()}")
-                        _flashSaleRejectedError.postValue("Unknown error occurred")
+                        _newArrivalsRejectedError.postValue("Unknown error occurred")
                     }
 
                 } }
             catch(e:Exception){
 
-                _flashSaleRejectedError.postValue("Failed to fetch data:NetWork Issue ${e.message}")
+                _newArrivalsRejectedError.postValue("Please check your Network connection")
                 Log.e("error", "Failed to fetch data:NetWork Issue ${e.message}")
             }
             finally{
@@ -201,7 +203,7 @@ class NewArrivalsViewModel: ViewModel() {
                 } }
             catch(e:Exception){
 
-                _newArrivalsPendingError.postValue("Failed to fetch data:NetWork Issue ${e.message}")
+                _newArrivalsPendingError.postValue("Please check your Network connection")
                 Log.e("error", "Failed to fetch data:NetWork Issue ${e.message}")
             }
             finally{
@@ -219,7 +221,7 @@ class NewArrivalsViewModel: ViewModel() {
                 // _isLoading.value=true
                 Log.d("rejectShopkeeperApi","rejectShopkeeperApi request--->$id")
                 val response= withContext(Dispatchers.IO){
-                    BaseUrlProvider.create().getRejectFlashSaleById(authHeaderValues,id)
+                    BaseUrlProvider.create().getRejectNewArrivalsById(authHeaderValues,id)
                 }
 
                 Log.d("rejectShopkeeperApi","rejectShopkeeperApi response--->...${response.code()}...${response.body()}")
@@ -249,7 +251,7 @@ class NewArrivalsViewModel: ViewModel() {
                 } }
             catch(e:Exception){
 
-                _newArrivalsRejectAwaitError.postValue("Failed to fetch data:NetWork Issue ${e.message}")
+                _newArrivalsRejectAwaitError.postValue("Please check your Network connection")
                 Log.e("error", "Failed to fetch data:NetWork Issue ${e.message}")
             }
             finally{
@@ -265,7 +267,7 @@ class NewArrivalsViewModel: ViewModel() {
                 // _isLoading.value=true
                 Log.d("acceptShopkeeperApi","acceptShopkeeperApi request--->$id")
                 val response= withContext(Dispatchers.IO){
-                    BaseUrlProvider.create().getAcceptFlashSaleById(authHeaderValues,id)
+                    BaseUrlProvider.create().getAcceptNewArrivalsById(authHeaderValues,id)
                 }
 
                 Log.d("acceptShopkeeperApi","acceptShopkeeperApi response--->...${response.code()}...${response.body()}")
@@ -295,7 +297,7 @@ class NewArrivalsViewModel: ViewModel() {
                 } }
             catch(e:Exception){
 
-                _newArrivalsApprovedAwaitError.postValue("Failed to fetch data:NetWork Issue ${e.message}")
+                _newArrivalsApprovedAwaitError.postValue("Please check your Network connection")
                 Log.e("error", "Failed to fetch data:NetWork Issue ${e.message}")
             }
             finally{
@@ -309,7 +311,7 @@ class NewArrivalsViewModel: ViewModel() {
                 // _isLoading.value=true
                 Log.d("approveallApi","approveallApi request--->")
                 val response= withContext(Dispatchers.IO){
-                    BaseUrlProvider.create().allApproveFlashSale()
+                    BaseUrlProvider.create().allApproveNewArrivals()
                 }
 
                 Log.d("acceptShopkeeperApi","acceptShopkeeperApi response--->...${response.code()}...${response.body()}...${response.errorBody()?.string()}")
@@ -319,27 +321,27 @@ class NewArrivalsViewModel: ViewModel() {
                         // Cache the response
 
                         if (responseData != null) {
-                            _flashSaleApprovedAllResponse.postValue(responseData)
+                            _newArrivalsApprovedAllResponse.postValue(responseData)
 
 
                         } else {
-                            _flashSaleApprovedAllError.postValue("Empty data")
+                            _newArrivalsApprovedAllError.postValue("Empty data")
                         }
                     }
                     in 400..500 -> {
                         Extensions.handleErrorMessageResponse(response.errorBody()) { errorMessage ->
-                            _flashSaleApprovedAllError.postValue("No pending or rejected flash sales to approve.")
+                            _newArrivalsApprovedAllError.postValue("No pending or rejected flash sales to approve.")
                         }
                     }
                     else -> {
                         Log.d("response","--->error${response.code()}")
-                        _flashSaleApprovedAllError.postValue("Unknown error occurred")
+                        _newArrivalsApprovedAllError.postValue("Unknown error occurred")
                     }
 
                 } }
             catch(e:Exception){
 
-                _flashSaleApprovedAllError.postValue("Failed to fetch data:NetWork Issue ${e.message}")
+                _newArrivalsApprovedAllError.postValue("Please check your Network connection")
                 Log.e("error", "Failed to fetch data:NetWork Issue ${e.message}")
             }
             finally{

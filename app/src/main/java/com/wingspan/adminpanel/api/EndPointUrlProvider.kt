@@ -3,6 +3,7 @@ package com.wingspan.adminpanel.api
 
 import com.wingspan.adminpanel.model.ApprovedFlashSale
 import com.wingspan.adminpanel.model.ApprovedMerchants
+import com.wingspan.adminpanel.model.ApprovedNewArrivals
 import com.wingspan.adminpanel.model.AwaitingFlashSale
 import com.wingspan.adminpanel.model.AwaitingMerchants
 import com.wingspan.adminpanel.model.AwaitingNewArrivals
@@ -12,6 +13,7 @@ import com.wingspan.adminpanel.model.LoginResponse
 import com.wingspan.adminpanel.model.RegistrationRequest
 import com.wingspan.adminpanel.model.RejectedFlashSale
 import com.wingspan.adminpanel.model.RejectedMerchants
+import com.wingspan.adminpanel.model.RejectedNewArrivals
 import com.wingspan.adminpanel.model.ResponseData
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -98,12 +100,26 @@ interface EndPointUrlProvider {
     @GET("admins/pending")
     suspend fun awaitingNewArrivals():Response<List<AwaitingNewArrivals>>
 
-    @PUT("admins/approve/{id}")
-    suspend fun getAcceptNewArrivalsById(
-        @Path("id") id:String):Response<ResponseData>
+
+
+    @PUT("admins/approve-all")
+    suspend fun allApproveNewArrivals():Response<ResponseData>
 
     @PUT("admins/reject/{id}")
     suspend fun getRejectNewArrivalsById(
+        @Header("Authorization") authorization:String,
         @Path("id") id:String):Response<ResponseData>
 
+
+    @PUT("admins/approve/{id}")
+    suspend fun getAcceptNewArrivalsById(
+        @Header("Authorization") authorization:String,
+        @Path("id") id:String):Response<ResponseData>
+
+
+    @GET("admins/allrejected")
+    suspend fun rejectedNewArrivals():Response<List<RejectedNewArrivals>>
+
+    @GET("admins/allapproved")
+    suspend fun approvedNewArrivals():Response<List<ApprovedNewArrivals>>
 }

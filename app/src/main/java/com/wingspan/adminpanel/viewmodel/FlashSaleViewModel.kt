@@ -67,12 +67,12 @@ class FlashSaleViewModel:ViewModel() {
                     _isLoading.value=true
                 }
 
-                Log.d("approvedMerchatApi","approvedMerchatApi request--->")
+                Log.d("approvedFlashSaleApi","approvedFlashSaleApi request--->")
                 val response= withContext(Dispatchers.IO){
                     BaseUrlProvider.create().approvedFlashSale()
                 }
 
-                Log.d("approvedMerchatApi","approvedMerchatApi response--->...${response.code()}...${response.body()}")
+                Log.d("approvedFlashSaleApi ","approvedMerchatApi response--->...${response.code()}...${response.body()}")
                 when (response.code()){
                     200->{
                         val responseData = response.body()
@@ -99,7 +99,7 @@ class FlashSaleViewModel:ViewModel() {
                 } }
             catch(e:Exception){
 
-                _flashSaleAprovedError.postValue("Failed to fetch data:NetWork Issue ${e.message}")
+                _flashSaleAprovedError.postValue("Please check your Network connection")
                 Log.e("error", "Failed to fetch data:NetWork Issue ${e.message}")
             }
             finally{
@@ -120,12 +120,12 @@ class FlashSaleViewModel:ViewModel() {
                 if(!isRefresh){
                     _isLoading.value=true
                 }
-                Log.d("rejectedMerchatApi","rejectedMerchatApi request--->")
+                Log.d("rejectedFlashSaleApi","rejectedFlashSaleApi request--->")
                 val response= withContext(Dispatchers.IO){
                     BaseUrlProvider.create().rejectedFlashSale()
                 }
 
-                Log.d("rejectedMerchatApi","rejectedMerchatApi response--->...${response.code()}...${response.body()}")
+                Log.d("rejectedFlashSaleApi","rejectedFlashSaleApi response--->...${response.code()}...${response.body()}")
                 when (response.code()){
                     200->{
                         val responseData = response.body()
@@ -152,7 +152,7 @@ class FlashSaleViewModel:ViewModel() {
                 } }
             catch(e:Exception){
 
-                _flashSaleRejectedError.postValue("Failed to fetch data:NetWork Issue ${e.message}")
+                _flashSaleRejectedError.postValue("Please check your Network connection")
                 Log.e("error", "Failed to fetch data:NetWork Issue ${e.message}")
             }
             finally{
@@ -203,7 +203,7 @@ class FlashSaleViewModel:ViewModel() {
                 } }
             catch(e:Exception){
 
-                _flashSalePendingError.postValue("Failed to fetch data:NetWork Issue ${e.message}")
+                _flashSalePendingError.postValue("Please check your Network connection")
                 Log.e("error", "Failed to fetch data:NetWork Issue ${e.message}")
             }
             finally{
@@ -251,7 +251,7 @@ class FlashSaleViewModel:ViewModel() {
                 } }
             catch(e:Exception){
 
-                _flashSaleRejectAwaitError.postValue("Failed to fetch data:NetWork Issue ${e.message}")
+                _flashSaleRejectAwaitError.postValue("Please check your Network connection")
                 Log.e("error", "Failed to fetch data:NetWork Issue ${e.message}")
             }
             finally{
@@ -297,7 +297,7 @@ class FlashSaleViewModel:ViewModel() {
                 } }
             catch(e:Exception){
 
-                _flashSaleApprovedAwaitError.postValue("Failed to fetch data:NetWork Issue ${e.message}")
+                _flashSaleApprovedAwaitError.postValue("Please check your Network connection")
                 Log.e("error", "Failed to fetch data:NetWork Issue ${e.message}")
             }
             finally{
@@ -314,7 +314,7 @@ class FlashSaleViewModel:ViewModel() {
                     BaseUrlProvider.create().allApproveFlashSale()
                 }
 
-                Log.d("acceptShopkeeperApi","acceptShopkeeperApi response--->...${response.code()}...${response.body()}...${response.errorBody()?.string()}")
+                Log.d("approveallApi","approveallApi response--->...${response.code()}...${response.body()}...${response.errorBody()?.string()}")
                 when (response.code()){
                     200->{
                         val responseData = response.body()
@@ -341,7 +341,7 @@ class FlashSaleViewModel:ViewModel() {
                 } }
             catch(e:Exception){
 
-                _flashSaleApprovedAllError.postValue("Failed to fetch data:NetWork Issue ${e.message}")
+                _flashSaleApprovedAllError.postValue("Please check your Network connection")
                 Log.e("error", "Failed to fetch data:NetWork Issue ${e.message}")
             }
             finally{

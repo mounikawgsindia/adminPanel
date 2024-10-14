@@ -10,6 +10,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.wingspan.adminpanel.R
 import com.wingspan.adminpanel.adapter.FlashSaleAwaitingAdapter
@@ -32,7 +33,7 @@ class NewArrivalsAwaitingFragment : Fragment() {
     lateinit var newArrivalsAdapter: NewArrivalsAwaitingAdapter
     var newArrivalsList=ArrayList<AwaitingNewArrivals>()
     private val viewModel: NewArrivalsViewModel by viewModels()
-
+    lateinit var viewPager:ViewPager2
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -46,6 +47,7 @@ class NewArrivalsAwaitingFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         fetchDataFromNetwork(false)
         Log.d("oncreate","oncreateview")
+        viewPager= activity?.findViewById(R.id.viewpager_new_arrivals)!!
         setUI()
         setObserver()
         setRecycleView()
@@ -62,6 +64,21 @@ class NewArrivalsAwaitingFragment : Fragment() {
                     // Enable swipe-to-refresh only if the RecyclerView is scrolled to the top
                     val isAtTop = !newArrivalAwaitingRv.canScrollVertically(-1)
                     binding.swipeRefreshLayout.isEnabled = isAtTop
+                }
+            })
+            // Detect when scrolling vertically and disable swipe gestures
+            newArrivalAwaitingRv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    if (dy != 0) {
+                        viewPager.isUserInputEnabled = false  // Disable swipe gestures during vertical scroll
+                    }
+                }
+
+                override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                    super.onScrollStateChanged(recyclerView, newState)
+                    if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                        viewPager.isUserInputEnabled = true  // Re-enable swipe gestures when scroll ends
+                    }
                 }
             })
 
@@ -132,10 +149,10 @@ class NewArrivalsAwaitingFragment : Fragment() {
         viewModel.newArrivalsApprovedAwaitError.observe(viewLifecycleOwner) { error ->
             Extensions.showCustomSnackbar(requireContext(),error, R.color.light_red)
         }
-        viewModel.flashSaleApprovedAllError.observe(viewLifecycleOwner){error->
+        viewModel.newArrivalsApprovedAllError.observe(viewLifecycleOwner){error->
             Extensions.showCustomSnackbar(requireContext(),error, R.color.light_red)
         }
-        viewModel.flashSaleApprovedAllResponse.observe(viewLifecycleOwner){response->
+        viewModel.newArrivalsApprovedAllResponse.observe(viewLifecycleOwner){response->
             Extensions.showCustomSnackbar(requireContext(),response?.message!!, R.color.green)
             fetchDataFromNetwork(false)
         }
@@ -160,7 +177,7 @@ class NewArrivalsAwaitingFragment : Fragment() {
     private fun showAlertDialog(){
         val builder= AlertDialog.Builder(requireContext())
         builder.setTitle("Approve All")
-        builder.setMessage("Are you sure want to Appro all Flash Sales?")
+        builder.setMessage("Are you sure want to Appro all New Arrivals?")
         builder.setPositiveButton("OK"){dialog,which->
             viewModel.approveallApi()
         }
