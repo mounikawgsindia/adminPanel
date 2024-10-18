@@ -70,7 +70,7 @@
     <string name="upload">Upload</string>
     <string name="price">Price</string>
     <string name="enter_price">Enter Price</string>
-    <string name="flash_sale_upload">Upload Flash Sale</string>
+    <string name="upload_cat">Upload Categories</string>
     <string name="look_up_products_by_name">Look up products by name</string>
     <string name="merchant_approval">Merchant</string>
     <string name="product_approval">Products</string>
@@ -83,4 +83,5 @@
     <string name="categories">Categories</string>
     <string name="approve_all"><u>Approve All</u></string>
     <string name="add">Add</string>
+    <string name="sub_categories">Sub Categories</string>
 </resources>

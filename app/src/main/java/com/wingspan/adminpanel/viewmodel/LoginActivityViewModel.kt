@@ -78,7 +78,7 @@ class LoginActivityViewModel:ViewModel() {
                 } }
             catch(e:Exception){
                 _isLoading.value=false
-                _shopKeeperLoginError.postValue("Failed to fetch data:NetWork Issue ${e.message}")
+                _shopKeeperLoginError.postValue("Please check your Network connection")
                 Log.e("error", "Failed to fetch data:NetWork Issue ${e.message}")
             }
         }

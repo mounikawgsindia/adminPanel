@@ -97,7 +97,7 @@ class RegistrationPageViewModel: ViewModel() {
 
             } }
             catch(e:Exception){
-                _adminRegistrationError.postValue("Failed to fetch data:Network issue ${e.message}")
+                _adminRegistrationError.postValue("Please check your Network connection")
                 Log.e("error", "Failed to fetch data:Network issue ${e.message}")
             }
         }
@@ -120,9 +120,7 @@ class RegistrationPageViewModel: ViewModel() {
     private fun isValisNumber(number:String):Boolean{
         return number.length==10
     }
-    private fun isValisNumberPincode(number:String):Boolean{
-        return number.length==6
-    }
+
     private fun isValidPassword(password:String):Boolean{
         val minLength = 8
         val uppercaseRegex = Regex("[A-Z]")

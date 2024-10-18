@@ -156,7 +156,7 @@ object Extensions {
             val gson = Gson()
             try {
                 val errorResponse = gson.fromJson(errorString, ErrorResponse1::class.java)
-                errorCallback(errorResponse.error)
+                errorCallback(errorResponse.error!!)
             } catch (e: Exception) {
                 Log.e("Error", "Parsing error response failed", e)
                 errorCallback("Error parsing response")
@@ -169,7 +169,7 @@ object Extensions {
             val gson = Gson()
             try {
                 val errorResponse = gson.fromJson(errorString, ErrorResponse::class.java)
-                errorCallback(errorResponse.message)
+                errorCallback(errorResponse.message!!)
             } catch (e: Exception) {
                 Log.e("Error", "Parsing error response failed", e)
                 errorCallback("An unexpected error occurred")

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="@color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.OffersFragment">
+
+
+
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/textView1"
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="4dp"
+        android:background="@color/textgrey"
+        app:cardUseCompatPadding="true"
+        tools:ignore="MissingConstraints">
+        <LinearLayout
+            android:id="@+id/categories"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:ignore="UselessLeaf"
+            android:padding="10dp"
+            android:background="@drawable/gradient_yellow_background">
+            <TextView
+                android:id="@+id/flash_sale_title1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Categories"
+                style="@style/HeadingTextStyle_white"
+                android:textSize="18sp"
+                android:textColor="@color/white" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:layout_marginTop="10dp">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight="1.5"
+                    style="@style/SmallTextStyle_white"
+                    android:text="The admin has the ability to Add, Edit, Delete, and View Categories."
+                    android:textSize="14sp"
+                    android:textColor="@color/white" />
+                <ImageView
+                    android:id="@+id/flash_sale_description1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    android:gravity="center"
+                    android:scaleType="fitEnd"
+                    android:src="@drawable/categories_icon1" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView1"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="4dp"
+        android:background="@color/textgrey"
+        app:cardUseCompatPadding="true"
+        tools:ignore="MissingConstraints">
+        <LinearLayout
+            android:id="@+id/sub_categories"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:ignore="UselessLeaf"
+            android:padding="10dp"
+            android:background="@drawable/gradient_blue_background">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sub_categories"
+                style="@style/HeadingTextStyle_white"
+                android:textSize="18sp"
+                android:textColor="@color/white" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:layout_marginTop="10dp">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight="1.5"
+                    style="@style/SmallTextStyle_white"
+                    android:text="The admin has the ability to Add, Edit, Delete, and View Sub Categories."
+                    android:textSize="14sp"
+                    android:textColor="@color/white" />
+                <ImageView
+
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:layout_weight="0.5"
+                    android:scaleType="fitEnd"
+                    android:src="@drawable/sub_categories" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

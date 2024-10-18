@@ -19,7 +19,7 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -47,7 +47,8 @@ dependencies {
     implementation ("androidx.security:security-crypto:1.1.0-alpha06")
     //circular Image
     implementation ("de.hdodenhof:circleimageview:3.1.0")
-
+    // Facebook Shimmer Layout
+    implementation("com.facebook.shimmer:shimmer:0.5.0")
     //view model
     implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.6")
     implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.8.6")

@@ -7,6 +7,8 @@ import com.wingspan.adminpanel.model.ApprovedNewArrivals
 import com.wingspan.adminpanel.model.AwaitingFlashSale
 import com.wingspan.adminpanel.model.AwaitingMerchants
 import com.wingspan.adminpanel.model.AwaitingNewArrivals
+import com.wingspan.adminpanel.model.CategoriesModel
+import com.wingspan.adminpanel.model.CategoryPostRequest
 import com.wingspan.adminpanel.model.FlashSaleResponse
 import com.wingspan.adminpanel.model.LoginRequest
 import com.wingspan.adminpanel.model.LoginResponse
@@ -122,4 +124,18 @@ interface EndPointUrlProvider {
 
     @GET("admins/allapproved")
     suspend fun approvedNewArrivals():Response<List<ApprovedNewArrivals>>
+
+    //categories
+    @GET("category/Categories")
+    suspend fun getCategories():Response<List<CategoriesModel>>
+
+
+    @POST("category/Categories")
+    suspend fun uploadCategories(@Body categoryPostRequest:CategoryPostRequest):Response<ResponseData>
+
+    @DELETE("category/Categories/{id}")
+    suspend fun deleteCategory(@Path("id")id:String):Response<ResponseData>
+
+    @PUT("category/Categories/{id}")
+    suspend fun editCategory(@Path("id")id:String,@Body categoryPostRequest:CategoryPostRequest):Response<ResponseData>
 }

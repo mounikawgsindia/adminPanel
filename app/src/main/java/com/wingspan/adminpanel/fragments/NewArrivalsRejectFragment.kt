@@ -13,7 +13,6 @@ import androidx.viewpager2.widget.ViewPager2
 import com.wingspan.adminpanel.R
 import com.wingspan.adminpanel.adapter.FlashSaleRejectAdapter
 import com.wingspan.adminpanel.adapter.NewArrivalRejectAdapter
-import com.wingspan.adminpanel.databinding.FragmentFlashSaleRejectBinding
 import com.wingspan.adminpanel.databinding.FragmentNewArrivalsRejectBinding
 import com.wingspan.adminpanel.extensions.Extensions
 import com.wingspan.adminpanel.model.RejectedFlashSale

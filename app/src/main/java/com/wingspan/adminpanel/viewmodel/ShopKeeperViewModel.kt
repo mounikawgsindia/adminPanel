@@ -93,7 +93,7 @@ class ShopKeeperViewModel:ViewModel() {
                     } }
                 catch(e:Exception){
 
-                    _merchatAprovedError.postValue("Failed to fetch data:NetWork Issue ${e.message}")
+                    _merchatAprovedError.postValue("Please check your Network connection")
                     Log.e("error", "Failed to fetch data:NetWork Issue ${e.message}")
                 }
                 finally{
@@ -146,7 +146,7 @@ class ShopKeeperViewModel:ViewModel() {
                     } }
                 catch(e:Exception){
 
-                    _merchatRejectedError.postValue("Failed to fetch data:NetWork Issue ${e.message}")
+                    _merchatRejectedError.postValue("Please check your Network connection")
                     Log.e("error", "Failed to fetch data:NetWork Issue ${e.message}")
                 }
                 finally{
@@ -198,7 +198,7 @@ class ShopKeeperViewModel:ViewModel() {
                     } }
                 catch(e:Exception){
 
-                    _merchatPendingError.postValue("Failed to fetch data:NetWork Issue ${e.message}")
+                    _merchatPendingError.postValue("Please check your Network connection")
                     Log.e("error", "Failed to fetch data:NetWork Issue ${e.message}")
                 }
                 finally{
@@ -246,7 +246,7 @@ class ShopKeeperViewModel:ViewModel() {
                 } }
             catch(e:Exception){
 
-                _merchatRejectAwaitError.postValue("Failed to fetch data:NetWork Issue ${e.message}")
+                _merchatRejectAwaitError.postValue("Please check your Network connection")
                 Log.e("error", "Failed to fetch data:NetWork Issue ${e.message}")
             }
             finally{
@@ -292,7 +292,7 @@ class ShopKeeperViewModel:ViewModel() {
                 } }
             catch(e:Exception){
 
-                _merchatApprovedAwaitError.postValue("Failed to fetch data:NetWork Issue ${e.message}")
+                _merchatApprovedAwaitError.postValue("Please check your Network connection")
                 Log.e("error", "Failed to fetch data:NetWork Issue ${e.message}")
             }
             finally{
