@@ -7,6 +7,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/category_cv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardElevation="2dp"
@@ -92,16 +93,6 @@
                             tools:ignore="UseAppTint" />
                     </LinearLayout>
 
-
-
-
-                    <!--                    <TextView-->
-                    <!--                        android:layout_width="wrap_content"-->
-                    <!--                        android:layout_height="wrap_content"-->
-                    <!--                        style="@style/SmallTextStyle_grey"-->
-                    <!--                        android:layout_marginTop="2dp"-->
-                    <!--                        android:text="@string/weight_grams"-->
-                    <!--                        android:padding="3dp"/>-->
                 </LinearLayout>
 
 

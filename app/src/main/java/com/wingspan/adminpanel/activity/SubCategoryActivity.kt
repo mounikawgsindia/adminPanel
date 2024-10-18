@@ -1,28 +1,20 @@
 package com.wingspan.adminpanel.activity
 
-import android.Manifest
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
-import android.provider.OpenableColumns
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -32,52 +24,57 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.snackbar.Snackbar
 import com.wingspan.adminpanel.R
 import com.wingspan.adminpanel.adapter.CategoriesAdapter
+import com.wingspan.adminpanel.adapter.SubCategoriesAdapter
 import com.wingspan.adminpanel.databinding.ActivityCategoriesBinding
+import com.wingspan.adminpanel.databinding.ActivitySubCategoryBinding
 import com.wingspan.adminpanel.databinding.CategoryUpdateLayoutBinding
 import com.wingspan.adminpanel.extensions.Extensions
 import com.wingspan.adminpanel.extensions.Extensions.setDebouncedClickListener
 import com.wingspan.adminpanel.model.CategoriesModel
+import com.wingspan.adminpanel.model.SubCategoriesModel
 import com.wingspan.adminpanel.utils.UserPreferences
 import com.wingspan.adminpanel.viewmodel.CategoriesViewModel
+import com.wingspan.adminpanel.viewmodel.SubCategoriesViewModel
+import java.io.File
+import java.io.IOException
+import java.text.SimpleDateFormat
+import java.util.Locale
 
-
-class CategoriesActivity : AppCompatActivity() {
-    var _binding: ActivityCategoriesBinding?=null
+class SubCategoryActivity : AppCompatActivity() {
+    var _binding: ActivitySubCategoryBinding?=null
     val binding get()=_binding
     lateinit var _bindingAlertDialog: CategoryUpdateLayoutBinding
     val bindingAlertDialog get()=_bindingAlertDialog
-    val viewModel:CategoriesViewModel by viewModels()
-    private var categoriesList=ArrayList<CategoriesModel>()
+    val viewModel: SubCategoriesViewModel by viewModels()
+    private var categoriesList=ArrayList<SubCategoriesModel>()
     private var isRefreshPage:Boolean=false
-
     private lateinit var sharedPreferences: UserPreferences
-    
-    private lateinit var categoryAdpter: CategoriesAdapter
-
+    private lateinit var categoryAdpter: SubCategoriesAdapter
+    var categoryId:String=""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        _binding=ActivityCategoriesBinding.inflate(layoutInflater)
+        _binding= ActivitySubCategoryBinding.inflate(layoutInflater)
         setContentView(binding?.root)
-        Extensions.setStatusBarColor(this@CategoriesActivity,R.color.white)
-
-
-        sharedPreferences= UserPreferences(this@CategoriesActivity)
+        Extensions.setStatusBarColor(this@SubCategoryActivity,R.color.white)
+        sharedPreferences= UserPreferences(this@SubCategoryActivity)
         setUI()
         setRecycleView()
         recycleViewSwipeDelete()
         setObservers()
-        apiCall(false)
+
+        apiCall()
         //refresh
         binding?.swipeRefreshLayout?.setOnRefreshListener {
             isRefreshPage=true
-            apiCall(isRefreshPage)
+            apiCall()
         }
 
 
     }
     private fun setUI(){
         binding?.apply {
+            categoryId=intent.getStringExtra("categoryid").toString()
             backIcon.setDebouncedClickListener(){
                 onBackPressedDispatcher.onBackPressed()
             }
@@ -97,7 +94,7 @@ class CategoriesActivity : AppCompatActivity() {
     }
     @SuppressLint("SuspiciousIndentation")
     private fun setObservers(){
-        viewModel.isLoading.observe(this@CategoriesActivity){isLoading->
+        viewModel.isLoading.observe(this@SubCategoryActivity){isLoading->
             if(isLoading){
                 binding?.shimmerLayout?.visibility= View.VISIBLE
                 binding?.categoryRv?.visibility = View.GONE
@@ -109,12 +106,12 @@ class CategoriesActivity : AppCompatActivity() {
             }
 
         }
-        viewModel.categoryResponse.observe(this@CategoriesActivity){response->
+        viewModel.categoryResponse.observe(this@SubCategoryActivity){response->
 
             categoriesList.clear()
             binding?.swipeRefreshLayout?.isRefreshing = false
             Log.d("observer","observer main class --->$response")
-            categoriesList= response as ArrayList<CategoriesModel>
+            categoriesList= response as ArrayList<SubCategoriesModel>
             if(categoriesList.size==0){
                 binding?.categoryRv?.visibility = View.GONE
                 binding?.listEmpty?.visibility = View.VISIBLE
@@ -127,64 +124,64 @@ class CategoriesActivity : AppCompatActivity() {
             }
 
         }
-        viewModel.categoryResponseError.observe(this@CategoriesActivity){error->
-            Extensions.showCustomSnackbar(this@CategoriesActivity,error,R.color.light_red)
+        viewModel.categoryResponseError.observe(this@SubCategoryActivity){error->
+            Extensions.showCustomSnackbar(this@SubCategoryActivity,error,R.color.light_red)
             binding?.swipeRefreshLayout?.isRefreshing = false
         }
-        viewModel.categoryDeleteResponse.observe(this@CategoriesActivity){response->
+        viewModel.categoryDeleteResponse.observe(this@SubCategoryActivity){response->
 
-            Extensions.showCustomSnackbar(this@CategoriesActivity,response.message.toString(),R.color.green)
+            Extensions.showCustomSnackbar(this@SubCategoryActivity,response.message.toString(),R.color.green)
         }
-        viewModel.categoryDeleteError.observe(this@CategoriesActivity){error->
-            Extensions.showCustomSnackbar(this@CategoriesActivity,error,R.color.light_red)
+        viewModel.categoryDeleteError.observe(this@SubCategoryActivity){error->
+            Extensions.showCustomSnackbar(this@SubCategoryActivity,error,R.color.light_red)
 
         }
-        viewModel.categoryPostResponse.observe(this@CategoriesActivity){response->
+        viewModel.categoryPostResponse.observe(this@SubCategoryActivity){response->
             binding?.loader?.visibility= View.GONE
-            Extensions.showCustomSnackbar(this@CategoriesActivity,response?.message.toString(),R.color.green)
+            Extensions.showCustomSnackbar(this@SubCategoryActivity,response?.message.toString(),R.color.green)
             Log.d("observer","observer flahSalePostResponse --->$response")
-            apiCall(true)
+            apiCall()
 
         }
-        viewModel.categoryPostResponseError.observe(this@CategoriesActivity){error->
+        viewModel.categoryPostResponseError.observe(this@SubCategoryActivity){error->
             binding?.loader?.visibility= View.GONE
             Log.d("observer","observer flahSalePostResponse error --->$error")
-            Extensions.showCustomSnackbar(this@CategoriesActivity,error,R.color.light_red)
+            Extensions.showCustomSnackbar(this@SubCategoryActivity,error,R.color.light_red)
         }
 
-        viewModel.categoryUpdateResponse.observe(this@CategoriesActivity){response->
+        viewModel.categoryUpdateResponse.observe(this@SubCategoryActivity){response->
 
-            Extensions.showCustomSnackbar(this@CategoriesActivity,response?.message.toString(),R.color.green)
+            Extensions.showCustomSnackbar(this@SubCategoryActivity,response?.message.toString(),R.color.green)
             Log.d("observer","observer flahSalePostResponse --->$response")
-            apiCall(true)
+            apiCall()
 
         }
-        viewModel.categoryUpdateResponseError.observe(this@CategoriesActivity){error->
+        viewModel.categoryUpdateResponseError.observe(this@SubCategoryActivity){error->
 
             Log.d("observer","observer flahSalePostResponse error --->$error")
-            Extensions.showCustomSnackbar(this@CategoriesActivity,error,R.color.light_red)
+            Extensions.showCustomSnackbar(this@SubCategoryActivity,error,R.color.light_red)
         }
     }
     private fun setRecycleView(){
         binding?.categoryRv?.apply {
-            categoryAdpter= CategoriesAdapter(this@CategoriesActivity,categoriesList,viewModel)
+            categoryAdpter= SubCategoriesAdapter(this@SubCategoryActivity,categoriesList,viewModel)
             layoutManager=
-                LinearLayoutManager(this@CategoriesActivity, LinearLayoutManager.VERTICAL,false)
+                LinearLayoutManager(this@SubCategoryActivity, LinearLayoutManager.VERTICAL,false)
             adapter=categoryAdpter
         }
     }
-    private fun apiCall(isRefreshPage:Boolean){
-        if(Extensions.isNetworkAvailable(this@CategoriesActivity)){
-            viewModel.getCategories(isRefreshPage)
+    private fun apiCall(){
+        if(Extensions.isNetworkAvailable(this@SubCategoryActivity)){
+            viewModel.getSubCategories(intent.getStringExtra("categoryid").toString())
         }else{
-            Extensions.showNetworkAlertDialog(this@CategoriesActivity)
+            Extensions.showNetworkAlertDialog(this@SubCategoryActivity)
         }
     }
 
     @SuppressLint("SetTextI18n", "SuspiciousIndentation")
     private fun categoryAlertDialog(){
-        val dialog= BottomSheetDialog(this@CategoriesActivity)
-        _bindingAlertDialog=CategoryUpdateLayoutBinding.inflate(layoutInflater)
+        val dialog= BottomSheetDialog(this@SubCategoryActivity)
+        _bindingAlertDialog= CategoryUpdateLayoutBinding.inflate(layoutInflater)
         dialog.setContentView(bindingAlertDialog.root)
         bindingAlertDialog.apply {
             upload.setDebouncedClickListener {
@@ -201,7 +198,8 @@ class CategoriesActivity : AppCompatActivity() {
                 {
                     dialog.dismiss()
                     binding?.loader?.visibility= View.VISIBLE
-                    viewModel.uploadCategory(nameEt.text.toString())
+
+                    viewModel.uploadSubCategory(categoryId,nameEt.text.toString())
                 }
 
             }
@@ -213,13 +211,14 @@ class CategoriesActivity : AppCompatActivity() {
 
         dialog.show()
     }
+   
   
- 
+
 
 
     private fun recycleViewSwipeDelete(){
         //swipe Delete
-        val swipeCallBack=SwipeCallback(this@CategoriesActivity,categoryAdpter)
+        val swipeCallBack=SwipeCallback(this@SubCategoryActivity,categoryAdpter)
         val itemTouchHelper= ItemTouchHelper(swipeCallBack)
         itemTouchHelper.attachToRecyclerView(binding?.categoryRv)
     }
@@ -227,7 +226,7 @@ class CategoriesActivity : AppCompatActivity() {
         super.onDestroy()
         _binding=null
     }
-    inner class SwipeCallback(context: Context, private val adapter:CategoriesAdapter):
+    inner class SwipeCallback(context: Context, private val adapter: SubCategoriesAdapter):
         ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT){
         private val deleteIcon = ContextCompat.getDrawable(context, R.drawable.delete)
         private val intrinsicWidth = deleteIcon?.intrinsicWidth ?: 0
@@ -261,7 +260,7 @@ class CategoriesActivity : AppCompatActivity() {
                             super.onDismissed(transientBottomBar, event)
                             if (event != DISMISS_EVENT_ACTION) {
 
-                                viewModel.deleteRecordApi(deletedItem.categorie_id.toString())
+                                viewModel.deleteRecordApi(deletedItem.item_id.toString())
 
                             }
                         }
@@ -308,8 +307,6 @@ class CategoriesActivity : AppCompatActivity() {
         }
 
     }
-
-
 
 
 }

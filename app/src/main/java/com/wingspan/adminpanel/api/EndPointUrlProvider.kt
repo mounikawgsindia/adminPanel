@@ -17,6 +17,8 @@ import com.wingspan.adminpanel.model.RejectedFlashSale
 import com.wingspan.adminpanel.model.RejectedMerchants
 import com.wingspan.adminpanel.model.RejectedNewArrivals
 import com.wingspan.adminpanel.model.ResponseData
+import com.wingspan.adminpanel.model.SubCategoriesModel
+import com.wingspan.adminpanel.model.SubCategoryPostRequest
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -138,4 +140,19 @@ interface EndPointUrlProvider {
 
     @PUT("category/Categories/{id}")
     suspend fun editCategory(@Path("id")id:String,@Body categoryPostRequest:CategoryPostRequest):Response<ResponseData>
+
+
+    //sub categories
+    @GET("subcategory/items")
+    suspend fun getSubCategories():Response<List<SubCategoriesModel>>
+
+
+    @POST("subcategory/items")
+    suspend fun uploadSubCategories(@Body categoryPostRequest:SubCategoryPostRequest):Response<ResponseData>
+
+    @DELETE("subcategory/items/{id}")
+    suspend fun deleteSubCategory(@Path("id")id:String):Response<ResponseData>
+
+    @PUT("subcategory/items/{id}")
+    suspend fun editSubCategory(@Path("id")id:String,@Body categoryPostRequest: SubCategoryPostRequest):Response<ResponseData>
 }

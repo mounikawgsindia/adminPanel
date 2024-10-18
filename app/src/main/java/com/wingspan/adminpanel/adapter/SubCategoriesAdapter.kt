@@ -2,29 +2,25 @@ package com.wingspan.adminpanel.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.wingspan.adminpanel.activity.SubCategoryActivity
 import com.wingspan.adminpanel.databinding.CategoryUpdateLayoutBinding
 import com.wingspan.adminpanel.databinding.CustomCategoriesListBinding
-import com.wingspan.adminpanel.extensions.Extensions
 import com.wingspan.adminpanel.extensions.Extensions.setDebouncedClickListener
 import com.wingspan.adminpanel.model.CategoriesModel
+import com.wingspan.adminpanel.model.SubCategoriesModel
 import com.wingspan.adminpanel.viewmodel.CategoriesViewModel
+import com.wingspan.adminpanel.viewmodel.SubCategoriesViewModel
 
-
-class CategoriesAdapter(
+class SubCategoriesAdapter(
     private val context: Context,
-    private var list: ArrayList<CategoriesModel>,
-    private val viewModel: CategoriesViewModel
-) : RecyclerView.Adapter<CategoriesAdapter.CategoriesViewHolder>() {
+    private var list: ArrayList<SubCategoriesModel>,
+    private val viewModel: SubCategoriesViewModel
+) : RecyclerView.Adapter<SubCategoriesAdapter.CategoriesViewHolder>() {
 
     // Late initialization for the alert dialog binding
     private lateinit var _bindingAlertDialog: CategoryUpdateLayoutBinding
@@ -48,24 +44,22 @@ class CategoriesAdapter(
 
         holder.binding.apply {
             // Setting category name
-            name.text = listItem.categorie_name
+            name.text = listItem.item_name
 
             // Handling the update button click
             update.setDebouncedClickListener {
-                categoryAlertDialog(listItem.categorie_id.toString(), listItem.categorie_name.toString())
+                Log.d("data","data ${listItem.categorie_id.toString()}...${listItem.item_name.toString()}")
+                categoryAlertDialog(listItem.categorie_id.toString(), listItem.item_name.toString(),listItem.item_id.toString())
             }
             categoryCv.setDebouncedClickListener {
-                Log.d("success","success ${listItem.categorie_id}")
-                val intent= Intent(context,SubCategoryActivity::class.java)
-                intent.putExtra("categoryid",listItem.categorie_id)
-                context.startActivity(intent)
+                Log.d("success","success");
             }
         }
     }
 
     // Method to update the data in the adapter and refresh the view
     @SuppressLint("NotifyDataSetChanged")
-    fun setData(newData: ArrayList<CategoriesModel>) {
+    fun setData(newData: ArrayList<SubCategoriesModel>) {
         list = newData
         notifyDataSetChanged()
     }
@@ -82,14 +76,14 @@ class CategoriesAdapter(
     }
 
     // Method to add a new item to the list
-    fun addItem(position: Int, newItem: CategoriesModel) {
+    fun addItem(position: Int, newItem: SubCategoriesModel) {
         list.add(position, newItem)
         notifyItemInserted(position)
     }
 
     // Displaying the category update dialog
     @SuppressLint("SetTextI18n")
-    private fun categoryAlertDialog(id: String, name: String) {
+    private fun categoryAlertDialog(categoryId: String, name:String,itemId:String) {
         val dialog = BottomSheetDialog(context)
         _bindingAlertDialog = CategoryUpdateLayoutBinding.inflate(LayoutInflater.from(context))
         dialog.setContentView(bindingAlertDialog.root)
@@ -110,7 +104,7 @@ class CategoriesAdapter(
                 // If the input is valid, update the category
                 if (nameEt.text.toString().isNotEmpty()) {
                     dialog.dismiss()
-                    viewModel.editCategory(id, nameEt.text.toString())
+                    viewModel.editSubCategory(categoryId, nameEt.text.toString(),itemId)
                 }
             }
 

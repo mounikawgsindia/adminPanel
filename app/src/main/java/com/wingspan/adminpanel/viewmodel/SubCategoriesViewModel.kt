@@ -1,9 +1,5 @@
 package com.wingspan.adminpanel.viewmodel
 
-import android.annotation.SuppressLint
-import android.content.ContentResolver
-import android.content.Context
-import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -14,21 +10,17 @@ import com.wingspan.adminpanel.extensions.Extensions
 import com.wingspan.adminpanel.model.CategoriesModel
 import com.wingspan.adminpanel.model.CategoryPostRequest
 import com.wingspan.adminpanel.model.ResponseData
+import com.wingspan.adminpanel.model.SubCategoriesModel
+import com.wingspan.adminpanel.model.SubCategoryPostRequest
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
-import okhttp3.RequestBody.Companion.asRequestBody
-import okhttp3.RequestBody.Companion.toRequestBody
-import java.io.File
 
-class CategoriesViewModel: ViewModel() {
+class SubCategoriesViewModel: ViewModel() {
 
 
-    private val _categoryResponse= MutableLiveData<List<CategoriesModel>?>()
-    val categoryResponse: LiveData<List<CategoriesModel>?> get() =_categoryResponse
+    private val _categoryResponse= MutableLiveData<List<SubCategoriesModel>?>()
+    val categoryResponse: LiveData<List<SubCategoriesModel>?> get() =_categoryResponse
 
     private val _categoryResponseError= MutableLiveData<String>()
     val categoryResponseError: LiveData<String> get() =_categoryResponseError
@@ -55,68 +47,65 @@ class CategoriesViewModel: ViewModel() {
     val categoryDeleteError: LiveData<String> get() =_categoryDeleteError
 
 
-    fun getCategories(isRefreshPage:Boolean){
-
-
-            _isLoading.value=true
-            viewModelScope.launch {
-                try{
-
-                    Log.d("getCategories","getCategories request--->")
-                    val response= withContext(Dispatchers.IO){
-                        BaseUrlProvider.create().getCategories()
-                    }
-
-                    Log.d("getCategories","getCategories response--->...${response.code()}...${response.body()}")
-                    when (response.code()){
-                        in 200..201->{
-                            val responseData = response.body()
-                            // Cache the response
-
-                            if (responseData != null) {
-                                _categoryResponse.postValue(responseData)
-
-                                Log.d("getFlashSale", "Caching response data: $responseData")
-                            } else {
-                                _categoryResponseError.postValue("Empty data")
-                            }
-                        }
-                        in 400..500 -> {
-                            Extensions.handleErrorResponse(response.errorBody()) { errorMessage ->
-                                _categoryResponseError.postValue(errorMessage)
-                            }
-                        }
-                        else -> {
-                            Log.d("response","--->error${response.code()}")
-                            _categoryResponseError.postValue("Unknown error occurred")
-                        }
-
-                    } }
-                catch(e:Exception){
-                    _categoryResponseError.postValue("Please check your NetWork Connection")
-
-                    Log.e("error", "Failed to fetch data:NetWork Issue ${e.message}")
-                }
-                finally{
-                    _isLoading.value=false
-                }
-            }
-        }
-    fun uploadCategory(categoryName:String){
+    fun getSubCategories(categoryID:String){
 
 
         _isLoading.value=true
         viewModelScope.launch {
             try{
 
-
-                val call=CategoryPostRequest(categoryName)
-                Log.d("uploadCategory","uploadCategory request--->$categoryName...$call")
+                Log.d("getCategories","getCategories request--->")
                 val response= withContext(Dispatchers.IO){
-                    BaseUrlProvider.create().uploadCategories(call)
+                    BaseUrlProvider.create().getSubCategories()
                 }
 
-                Log.d("uploadCategory","uploadCategory response--->...${response.code()}...${response.body()}")
+                Log.d("getCategories","getCategories response--->...${response.code()}...${response.body()}")
+                when (response.code()){
+                    in 200..201->{
+                        val responseData = response.body()
+                        // Cache the response
+
+                        if (responseData != null) {
+                            _categoryResponse.postValue(responseData)
+
+                        } else {
+                            _categoryResponseError.postValue("Empty data")
+                        }
+                    }
+                    in 400..500 -> {
+                        Extensions.handleErrorResponse(response.errorBody()) { errorMessage ->
+                            _categoryResponseError.postValue(errorMessage)
+                        }
+                    }
+                    else -> {
+                        Log.d("response","--->error${response.code()}")
+                        _categoryResponseError.postValue("Unknown error occurred")
+                    }
+
+                } }
+            catch(e:Exception){
+                _categoryResponseError.postValue("Please check your NetWork Connection")
+
+                Log.e("error", "Failed to fetch data:NetWork Issue ${e.message}")
+            }
+            finally{
+                _isLoading.value=false
+            }
+        }
+    }
+    fun uploadSubCategory(categoryId:String,categoryName:String){
+        _isLoading.value=true
+        viewModelScope.launch {
+            try{
+
+
+                val call= SubCategoryPostRequest(categoryName,categoryId)
+                Log.d("uploadSubCategory","uploadSubCategory request--->$categoryName...$call")
+                val response= withContext(Dispatchers.IO){
+                    BaseUrlProvider.create().uploadSubCategories(call)
+                }
+
+                Log.d("uploadSubCategory","uploadSubCategory response--->...${response.code()}...${response.body()}..${response.errorBody()?.string()}")
                 when (response.code()){
                     in 200..201->{
                         val responseData = response.body()
@@ -125,7 +114,6 @@ class CategoriesViewModel: ViewModel() {
                         if (responseData != null) {
                             _categoryPostResponse.postValue(responseData)
 
-                            Log.d("getFlashSale", "Caching response data: $responseData")
                         } else {
                             _categoryPostResponseError.postValue("Empty data")
                         }
@@ -152,15 +140,16 @@ class CategoriesViewModel: ViewModel() {
         }
     }
 
+
     fun deleteRecordApi(itemId:String){
         viewModelScope.launch {
             _isLoading.value=true
-            Log.d("deleteRecordApi", "deleteRecordApi")
+            Log.d("deleteRecordApi", "deleteRecordApi ${itemId}")
             val response = withContext(Dispatchers.IO) {
-                BaseUrlProvider.create().deleteCategory(itemId)
+                BaseUrlProvider.create().deleteSubCategory(itemId)
             }
             try {
-                Log.d("deleteRecordApi","deleteRecordApi response--->...${response.code()}...${response.body()}")
+                Log.d("deleteRecordApi","deleteRecordApi response--->...${response.code()}...${response.body()}..${response.errorBody()?.string()}")
                 when(response.code()){
                     in 200 ..201->{
                         if (response.body() != null) {
@@ -188,19 +177,19 @@ class CategoriesViewModel: ViewModel() {
         }
 
     }
-    fun editCategory(categoryID:String,categoryName:String){
+    fun editSubCategory(categoryID:String,categoryName:String,itemId:String){
 
 
         _isLoading.value=true
         viewModelScope.launch {
             try{
-                val call=CategoryPostRequest(categoryName)
+                val call= SubCategoryPostRequest(categoryName,categoryID)
                 Log.d("editCategory","editCategory request--->$categoryName...$call")
                 val response= withContext(Dispatchers.IO){
-                    BaseUrlProvider.create().editCategory(categoryID,call)
+                    BaseUrlProvider.create().editSubCategory(itemId,call)
                 }
 
-                Log.d("editCategory","editCategory response--->...${response.code()}...${response.body()}")
+                Log.d("editCategory","editCategory response--->...${response.code()}...${response.body()}..${response.errorBody()?.string()}")
                 when (response.code()){
                     in 200..201->{
                         val responseData = response.body()
@@ -208,8 +197,6 @@ class CategoriesViewModel: ViewModel() {
 
                         if (responseData != null) {
                             _categoryUpdateResponse.postValue(responseData)
-
-
                         } else {
                             _categoryUpdateResponseError.postValue("Empty data")
                         }

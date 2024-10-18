@@ -48,7 +48,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="3.8"
                         android:gravity="start"
-                        android:text="Categories"
+                        android:text="Sub Categories"
                         android:textColor="@color/black" />
 
 
