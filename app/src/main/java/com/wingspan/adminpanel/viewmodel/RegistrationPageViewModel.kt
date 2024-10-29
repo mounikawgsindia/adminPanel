@@ -13,6 +13,7 @@ import com.wingspan.adminpanel.model.ResponseData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.io.IOException
 
 
 class RegistrationPageViewModel: ViewModel() {
@@ -96,9 +97,13 @@ class RegistrationPageViewModel: ViewModel() {
                 }
 
             } }
+            catch (e: IOException) {
+                Log.e("NetworkError", "Network connection issue: ${e.message}")
+                _adminRegistrationError.postValue("Network connection issue, please try again later.")
+            }
             catch(e:Exception){
-                _adminRegistrationError.postValue("Please check your Network connection")
-                Log.e("error", "Failed to fetch data:Network issue ${e.message}")
+                _adminRegistrationError.postValue("Failed to fetch data: ${e.message}")
+                Log.e("error", "Failed to fetch data: ${e.message}")
             }
         }
 

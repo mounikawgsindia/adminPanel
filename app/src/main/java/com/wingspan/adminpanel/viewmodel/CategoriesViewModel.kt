@@ -23,6 +23,7 @@ import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
+import java.io.IOException
 
 class CategoriesViewModel: ViewModel() {
 
@@ -92,10 +93,13 @@ class CategoriesViewModel: ViewModel() {
                         }
 
                     } }
+                catch (e: IOException) {
+                    Log.e("NetworkError", "Network connection issue: ${e.message}")
+                    _categoryResponseError.postValue("Network connection issue, please try again later.")
+                }
                 catch(e:Exception){
-                    _categoryResponseError.postValue("Please check your NetWork Connection")
-
-                    Log.e("error", "Failed to fetch data:NetWork Issue ${e.message}")
+                    _categoryResponseError.postValue("Failed to fetch data: ${e.message}")
+                    Log.e("error", "Failed to fetch data: ${e.message}")
                 }
                 finally{
                     _isLoading.value=false
@@ -141,10 +145,13 @@ class CategoriesViewModel: ViewModel() {
                     }
 
                 } }
+            catch (e: IOException) {
+                Log.e("NetworkError", "Network connection issue: ${e.message}")
+                _categoryPostResponseError.postValue("Network connection issue, please try again later.")
+            }
             catch(e:Exception){
-                _categoryPostResponseError.postValue("Please check your NetWork Connection")
-
-                Log.e("error", "Failed to fetch data:NetWork Issue ${e.message}")
+                _categoryPostResponseError.postValue("Failed to fetch data: ${e.message}")
+                Log.e("error", "Failed to fetch data: ${e.message}")
             }
             finally{
                 _isLoading.value=false
@@ -180,16 +187,20 @@ class CategoriesViewModel: ViewModel() {
                         _categoryDeleteError.postValue("Unknown error occurred")
                     }
                 }
-            } catch (e: Exception) {
-                _categoryDeleteError.postValue("Please check your NetWork Connection")
-            } finally {
+            }  catch (e: IOException) {
+                Log.e("NetworkError", "Network connection issue: ${e.message}")
+                _categoryDeleteError.postValue("Network connection issue, please try again later.")
+            }
+            catch(e:Exception){
+                _categoryDeleteError.postValue("Failed to fetch data: ${e.message}")
+                Log.e("error", "Failed to fetch data: ${e.message}")
+            }finally {
                 _isLoading.value=false
             }
         }
 
     }
     fun editCategory(categoryID:String,categoryName:String){
-
 
         _isLoading.value=true
         viewModelScope.launch {
@@ -225,10 +236,13 @@ class CategoriesViewModel: ViewModel() {
                     }
 
                 } }
+            catch (e: IOException) {
+                Log.e("NetworkError", "Network connection issue: ${e.message}")
+                _categoryUpdateResponseError.postValue("Network connection issue, please try again later.")
+            }
             catch(e:Exception){
-                _categoryUpdateResponseError.postValue("Please check your NetWork Connection")
-
-                Log.e("error", "Failed to fetch data:NetWork Issue ${e.message}")
+                _categoryUpdateResponseError.postValue("Failed to fetch data: ${e.message}")
+                Log.e("error", "Failed to fetch data: ${e.message}")
             }
             finally{
                 _isLoading.value=false

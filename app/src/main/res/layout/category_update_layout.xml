@@ -15,7 +15,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         tools:ignore="MissingPrefix">
         <TextView
-            android:id="@+id/textView22"
+            android:id="@+id/heading"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="Update Category"

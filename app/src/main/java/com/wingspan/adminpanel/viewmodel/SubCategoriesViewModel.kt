@@ -15,6 +15,7 @@ import com.wingspan.adminpanel.model.SubCategoryPostRequest
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.io.IOException
 
 class SubCategoriesViewModel: ViewModel() {
 
@@ -83,10 +84,13 @@ class SubCategoriesViewModel: ViewModel() {
                     }
 
                 } }
+            catch (e: IOException) {
+                Log.e("NetworkError", "Network connection issue: ${e.message}")
+                _categoryResponseError.postValue("Network connection issue, please try again later.")
+            }
             catch(e:Exception){
-                _categoryResponseError.postValue("Please check your NetWork Connection")
-
-                Log.e("error", "Failed to fetch data:NetWork Issue ${e.message}")
+                _categoryResponseError.postValue("Failed to fetch data: ${e.message}")
+                Log.e("error", "Failed to fetch data: ${e.message}")
             }
             finally{
                 _isLoading.value=false
@@ -129,10 +133,13 @@ class SubCategoriesViewModel: ViewModel() {
                     }
 
                 } }
+            catch (e: IOException) {
+                Log.e("NetworkError", "Network connection issue: ${e.message}")
+                _categoryPostResponseError.postValue("Network connection issue, please try again later.")
+            }
             catch(e:Exception){
-                _categoryPostResponseError.postValue("Please check your NetWork Connection")
-
-                Log.e("error", "Failed to fetch data:NetWork Issue ${e.message}")
+                _categoryPostResponseError.postValue("Failed to fetch data: ${e.message}")
+                Log.e("error", "Failed to fetch data: ${e.message}")
             }
             finally{
                 _isLoading.value=false
@@ -169,9 +176,16 @@ class SubCategoriesViewModel: ViewModel() {
                         _categoryDeleteError.postValue("Unknown error occurred")
                     }
                 }
-            } catch (e: Exception) {
-                _categoryDeleteError.postValue("Please check your NetWork Connection")
-            } finally {
+            }
+            catch (e: IOException) {
+                Log.e("NetworkError", "Network connection issue: ${e.message}")
+                _categoryDeleteError.postValue("Network connection issue, please try again later.")
+            }
+            catch(e:Exception){
+                _categoryDeleteError.postValue("Failed to fetch data: ${e.message}")
+                Log.e("error", "Failed to fetch data: ${e.message}")
+            }
+            finally {
                 _isLoading.value=false
             }
         }
@@ -212,10 +226,13 @@ class SubCategoriesViewModel: ViewModel() {
                     }
 
                 } }
+            catch (e: IOException) {
+                Log.e("NetworkError", "Network connection issue: ${e.message}")
+                _categoryUpdateResponseError.postValue("Network connection issue, please try again later.")
+            }
             catch(e:Exception){
-                _categoryUpdateResponseError.postValue("Please check your NetWork Connection")
-
-                Log.e("error", "Failed to fetch data:NetWork Issue ${e.message}")
+                _categoryUpdateResponseError.postValue("Failed to fetch data: ${e.message}")
+                Log.e("error", "Failed to fetch data: ${e.message}")
             }
             finally{
                 _isLoading.value=false

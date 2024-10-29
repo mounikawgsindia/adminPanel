@@ -18,6 +18,7 @@ import com.wingspan.adminpanel.model.ResponseData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.io.IOException
 
 class FlashSaleViewModel:ViewModel() {
     private val _flashSaleAprovedResponse= MutableLiveData<List<ApprovedFlashSale>?>()
@@ -150,10 +151,13 @@ class FlashSaleViewModel:ViewModel() {
                     }
 
                 } }
+            catch (e: IOException) {
+                Log.e("NetworkError", "Network connection issue: ${e.message}")
+                _flashSaleRejectedError.postValue("Network connection issue, please try again later.")
+            }
             catch(e:Exception){
-
-                _flashSaleRejectedError.postValue("Please check your Network connection")
-                Log.e("error", "Failed to fetch data:NetWork Issue ${e.message}")
+                _flashSaleRejectedError.postValue("Failed to fetch data: ${e.message}")
+                Log.e("error", "Failed to fetch data: ${e.message}")
             }
             finally{
                 if(!isRefresh){
@@ -201,10 +205,13 @@ class FlashSaleViewModel:ViewModel() {
                     }
 
                 } }
+            catch (e: IOException) {
+                Log.e("NetworkError", "Network connection issue: ${e.message}")
+                _flashSalePendingError.postValue("Network connection issue, please try again later.")
+            }
             catch(e:Exception){
-
-                _flashSalePendingError.postValue("Please check your Network connection")
-                Log.e("error", "Failed to fetch data:NetWork Issue ${e.message}")
+                _flashSalePendingError.postValue("Failed to fetch data: ${e.message}")
+                Log.e("error", "Failed to fetch data: ${e.message}")
             }
             finally{
                 if(!isRefresh){
@@ -249,10 +256,13 @@ class FlashSaleViewModel:ViewModel() {
                     }
 
                 } }
+            catch (e: IOException) {
+                Log.e("NetworkError", "Network connection issue: ${e.message}")
+                _flashSaleRejectAwaitError.postValue("Network connection issue, please try again later.")
+            }
             catch(e:Exception){
-
-                _flashSaleRejectAwaitError.postValue("Please check your Network connection")
-                Log.e("error", "Failed to fetch data:NetWork Issue ${e.message}")
+                _flashSaleRejectAwaitError.postValue("Failed to fetch data: ${e.message}")
+                Log.e("error", "Failed to fetch data: ${e.message}")
             }
             finally{
                 //_isLoading.value=false
@@ -295,10 +305,13 @@ class FlashSaleViewModel:ViewModel() {
                     }
 
                 } }
+            catch (e: IOException) {
+                Log.e("NetworkError", "Network connection issue: ${e.message}")
+                _flashSaleApprovedAwaitError.postValue("Network connection issue, please try again later.")
+            }
             catch(e:Exception){
-
-                _flashSaleApprovedAwaitError.postValue("Please check your Network connection")
-                Log.e("error", "Failed to fetch data:NetWork Issue ${e.message}")
+                _flashSaleApprovedAwaitError.postValue("Failed to fetch data: ${e.message}")
+                Log.e("error", "Failed to fetch data: ${e.message}")
             }
             finally{
                 //_isLoading.value=false
@@ -339,10 +352,13 @@ class FlashSaleViewModel:ViewModel() {
                     }
 
                 } }
+            catch (e: IOException) {
+                Log.e("NetworkError", "Network connection issue: ${e.message}")
+                _flashSaleApprovedAllError.postValue("Network connection issue, please try again later.")
+            }
             catch(e:Exception){
-
-                _flashSaleApprovedAllError.postValue("Please check your Network connection")
-                Log.e("error", "Failed to fetch data:NetWork Issue ${e.message}")
+                _flashSaleApprovedAllError.postValue("Failed to fetch data: ${e.message}")
+                Log.e("error", "Failed to fetch data: ${e.message}")
             }
             finally{
                 //_isLoading.value=false

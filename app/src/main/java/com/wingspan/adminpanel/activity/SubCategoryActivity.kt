@@ -25,7 +25,6 @@ import com.google.android.material.snackbar.Snackbar
 import com.wingspan.adminpanel.R
 import com.wingspan.adminpanel.adapter.CategoriesAdapter
 import com.wingspan.adminpanel.adapter.SubCategoriesAdapter
-import com.wingspan.adminpanel.databinding.ActivityCategoriesBinding
 import com.wingspan.adminpanel.databinding.ActivitySubCategoryBinding
 import com.wingspan.adminpanel.databinding.CategoryUpdateLayoutBinding
 import com.wingspan.adminpanel.extensions.Extensions
@@ -47,6 +46,7 @@ class SubCategoryActivity : AppCompatActivity() {
     val bindingAlertDialog get()=_bindingAlertDialog
     val viewModel: SubCategoriesViewModel by viewModels()
     private var categoriesList=ArrayList<SubCategoriesModel>()
+    private var categoriesFiltredList=ArrayList<SubCategoriesModel>()
     private var isRefreshPage:Boolean=false
     private lateinit var sharedPreferences: UserPreferences
     private lateinit var categoryAdpter: SubCategoriesAdapter
@@ -120,7 +120,14 @@ class SubCategoryActivity : AppCompatActivity() {
             else{
                 binding?.categoryRv?.visibility = View.VISIBLE
                 binding?.listEmpty?.visibility = View.GONE
-                categoryAdpter.setData(categoriesList)
+                val categoryId=intent.getStringExtra("categoryid")
+                categoriesFiltredList.clear()
+                categoriesList.forEach{item->
+                    if(item.categorie_id==categoryId){
+                        categoriesFiltredList.add(item)
+                    }
+                }
+                categoryAdpter.setData(categoriesFiltredList)
             }
 
         }
@@ -185,7 +192,7 @@ class SubCategoryActivity : AppCompatActivity() {
         dialog.setContentView(bindingAlertDialog.root)
         bindingAlertDialog.apply {
             upload.setDebouncedClickListener {
-
+                heading.text="Add Categoty"
 
                 if(nameEt.text.toString().isEmpty()){
                     nameErrorTV.visibility= View.VISIBLE

@@ -59,6 +59,7 @@ class CategoriesAdapter(
                 val intent= Intent(context,SubCategoryActivity::class.java)
                 intent.putExtra("categoryid",listItem.categorie_id)
                 context.startActivity(intent)
+
             }
         }
     }

@@ -15,6 +15,7 @@ import com.wingspan.adminpanel.model.LoginResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.io.IOException
 
 class LoginActivityViewModel:ViewModel() {
     private val _isDataValid= MutableLiveData<Boolean>()
@@ -76,11 +77,17 @@ class LoginActivityViewModel:ViewModel() {
                     }
 
                 } }
-            catch(e:Exception){
-                _isLoading.value=false
-                _shopKeeperLoginError.postValue("Please check your Network connection")
-                Log.e("error", "Failed to fetch data:NetWork Issue ${e.message}")
+            catch (e: IOException) {
+                Log.e("NetworkError", "Network connection issue: ${e.message}")
+                _shopKeeperLoginError.postValue("Network connection issue, please try again later.")
             }
+            catch(e:Exception){
+                _shopKeeperLoginError.postValue("Failed to fetch data: ${e.message}")
+                Log.e("error", "Failed to fetch data: ${e.message}")
+            }finally{
+                _isLoading.value=false
+            }
+
         }
 
     }

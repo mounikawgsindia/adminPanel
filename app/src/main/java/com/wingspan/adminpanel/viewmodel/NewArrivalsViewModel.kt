@@ -18,6 +18,7 @@ import com.wingspan.adminpanel.model.ResponseData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.io.IOException
 
 class NewArrivalsViewModel: ViewModel() {
     private val _newArrivalsAprovedResponse= MutableLiveData<List<ApprovedNewArrivals>?>()
@@ -97,10 +98,13 @@ class NewArrivalsViewModel: ViewModel() {
                     }
 
                 } }
+            catch (e: IOException) {
+                Log.e("NetworkError", "Network connection issue: ${e.message}")
+                _newArrivalsAprovedError.postValue("Network connection issue, please try again later.")
+            }
             catch(e:Exception){
-
-                _newArrivalsAprovedError.postValue("Please check your Network connection")
-                Log.e("error", "Failed to fetch data:NetWork Issue ${e.message}")
+                _newArrivalsAprovedError.postValue("Failed to fetch data: ${e.message}")
+                Log.e("error", "Failed to fetch data: ${e.message}")
             }
             finally{
                 if(!isRefresh){
@@ -150,10 +154,13 @@ class NewArrivalsViewModel: ViewModel() {
                     }
 
                 } }
+            catch (e: IOException) {
+                Log.e("NetworkError", "Network connection issue: ${e.message}")
+                _newArrivalsRejectedError.postValue("Network connection issue, please try again later.")
+            }
             catch(e:Exception){
-
-                _newArrivalsRejectedError.postValue("Please check your Network connection")
-                Log.e("error", "Failed to fetch data:NetWork Issue ${e.message}")
+                _newArrivalsRejectedError.postValue("Failed to fetch data: ${e.message}")
+                Log.e("error", "Failed to fetch data: ${e.message}")
             }
             finally{
                 if(!isRefresh){
@@ -201,10 +208,13 @@ class NewArrivalsViewModel: ViewModel() {
                     }
 
                 } }
+            catch (e: IOException) {
+                Log.e("NetworkError", "Network connection issue: ${e.message}")
+                _newArrivalsPendingError.postValue("Network connection issue, please try again later.")
+            }
             catch(e:Exception){
-
-                _newArrivalsPendingError.postValue("Please check your Network connection")
-                Log.e("error", "Failed to fetch data:NetWork Issue ${e.message}")
+                _newArrivalsPendingError.postValue("Failed to fetch data: ${e.message}")
+                Log.e("error", "Failed to fetch data: ${e.message}")
             }
             finally{
                 if(!isRefresh){
@@ -249,10 +259,13 @@ class NewArrivalsViewModel: ViewModel() {
                     }
 
                 } }
+            catch (e: IOException) {
+                Log.e("NetworkError", "Network connection issue: ${e.message}")
+                _newArrivalsRejectAwaitError.postValue("Network connection issue, please try again later.")
+            }
             catch(e:Exception){
-
-                _newArrivalsRejectAwaitError.postValue("Please check your Network connection")
-                Log.e("error", "Failed to fetch data:NetWork Issue ${e.message}")
+                _newArrivalsRejectAwaitError.postValue("Failed to fetch data: ${e.message}")
+                Log.e("error", "Failed to fetch data: ${e.message}")
             }
             finally{
                 //_isLoading.value=false
@@ -295,10 +308,13 @@ class NewArrivalsViewModel: ViewModel() {
                     }
 
                 } }
+            catch (e: IOException) {
+                Log.e("NetworkError", "Network connection issue: ${e.message}")
+                _newArrivalsApprovedAwaitError.postValue("Network connection issue, please try again later.")
+            }
             catch(e:Exception){
-
-                _newArrivalsApprovedAwaitError.postValue("Please check your Network connection")
-                Log.e("error", "Failed to fetch data:NetWork Issue ${e.message}")
+                _newArrivalsApprovedAwaitError.postValue("Failed to fetch data: ${e.message}")
+                Log.e("error", "Failed to fetch data: ${e.message}")
             }
             finally{
                 //_isLoading.value=false
@@ -339,10 +355,13 @@ class NewArrivalsViewModel: ViewModel() {
                     }
 
                 } }
+            catch (e: IOException) {
+                Log.e("NetworkError", "Network connection issue: ${e.message}")
+                _newArrivalsApprovedAllError.postValue("Network connection issue, please try again later.")
+            }
             catch(e:Exception){
-
-                _newArrivalsApprovedAllError.postValue("Please check your Network connection")
-                Log.e("error", "Failed to fetch data:NetWork Issue ${e.message}")
+                _newArrivalsApprovedAllError.postValue("Failed to fetch data: ${e.message}")
+                Log.e("error", "Failed to fetch data: ${e.message}")
             }
             finally{
                 //_isLoading.value=false

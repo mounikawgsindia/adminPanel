@@ -18,6 +18,7 @@ import com.wingspan.adminpanel.model.ResponseData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.io.IOException
 
 class ShopKeeperViewModel:ViewModel() {
     private val _merchatAprovedResponse= MutableLiveData<List<ApprovedMerchants>?>()
@@ -290,10 +291,13 @@ class ShopKeeperViewModel:ViewModel() {
                     }
 
                 } }
+            catch (e: IOException) {
+                Log.e("NetworkError", "Network connection issue: ${e.message}")
+                _merchatApprovedAwaitError.postValue("Network connection issue, please try again later.")
+            }
             catch(e:Exception){
-
-                _merchatApprovedAwaitError.postValue("Please check your Network connection")
-                Log.e("error", "Failed to fetch data:NetWork Issue ${e.message}")
+                _merchatApprovedAwaitError.postValue("Failed to fetch data: ${e.message}")
+                Log.e("error", "Failed to fetch data: ${e.message}")
             }
             finally{
                 //_isLoading.value=false
